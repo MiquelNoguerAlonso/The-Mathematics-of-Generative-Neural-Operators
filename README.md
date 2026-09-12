@@ -1,77 +1,83 @@
-# Generative Neural Operators
+# The Mathematics of Generative Neural Operators
 
-**Miquel Noguer i Alonso**  
-Artificial Intelligence Finance Institute (AIFI)
+**Manuscript:** [Read the complete PDF](Generative_Neural_Operators.pdf)
 
-Two mathematical papers on generative neural operators, with complete LaTeX sources, compiled PDFs, Lean 4 projects, reproducible synthetic experiments, trained parameters, and validation reports.
+**Author:** Miquel Noguer i Alonso
 
-| Paper | Manuscript | DOI | Sources and reproduction |
-|---|---|---|---|
-| I. The Mathematics of Generative Neural Operators | [PDF, 49 pages](foundations/Generative_Neural_Operators.pdf) | [10.5281/zenodo.22714854](https://doi.org/10.5281/zenodo.22714854) | [Foundations README](foundations/README.md) |
-| II. Generative Neural Operators in Finance | [PDF, 42 pages](finance/Generative_Neural_Operators_Finance.pdf) | [10.5281/zenodo.22714857](https://doi.org/10.5281/zenodo.22714857) | [Finance README](finance/README.md) |
+**DOI:** [10.5281/zenodo.22714854](https://doi.org/10.5281/zenodo.22714854)
 
-Both papers include linked tables of contents, author-year citations with `plainnat`, and the author's academic LaTeX format. The source uses `\today`; subsequent builds display their compilation date.
+The manuscript develops resolution-autonomy obstructions, a Gaussian transport-cost premium, conditional refinement generators, a sharp Wasserstein error recurrence, an infinite-dimensional existence certificate, and observation and physical-time limits.
 
-## Paper I: mathematical foundations
+## Build the paper
 
-The foundations paper studies when generative laws remain consistent across observation resolutions and why a projected state may fail to admit autonomous dynamics. Conditional refinement preserves generated coarse coordinates. A sharp orthogonal error recurrence separates conditional fitting error from unresolved energy, while an exact energy gain characterizes class-uniform robustness.
+Main file: `Generative_Neural_Operators.tex`.
 
-The paper also treats nonorthogonal observations, invertible nonlinear representations, architecture-dependent error propagation, and an independent observed-sample audit under explicit support, regularity, sufficient-context, and tail assumptions.
-
-## Paper II: finance
-
-The finance paper connects latent field approximation, posterior inference, and event-intensity errors to observable market paths and execution decisions. It studies hidden liquidity, reserve conservation, filtering, policy comparison, and martingale pricing.
-
-For a finite observable control model, recorded counts and exposures produce simultaneous rate intervals. Robust dynamic programming turns those intervals into guarantees for a policy selected from the same data. Continuation values quantify economically relevant rate errors, numerical residuals account for time discretization, and an early-exercise example isolates the importance of information timing.
-
-## Build the PDFs
-
-Each paper is self-contained. Its figures, tables, and bibliography are already included; building the PDF does not require running Python or Lean.
-
-From the repository root:
+The source uses `natbib` with author-year citations and `\bibliographystyle{plainnat}`. All seven figures are PNG files. The numerical tables and figures are included, so compiling does not require running Python.
 
 ```bash
-cd foundations
 latexmk -pdf -interaction=nonstopmode -halt-on-error Generative_Neural_Operators.tex
-cd ../finance
-latexmk -pdf -interaction=nonstopmode -halt-on-error Generative_Neural_Operators_Finance.tex
 ```
 
-Use pdfLaTeX and BibTeX. For Overleaf, upload the contents of the relevant paper folder and select its main `.tex` file.
+Alternatively run `pdflatex`, `bibtex`, then `pdflatex` twice. For Overleaf, upload the complete source ZIP and select `Generative_Neural_Operators.tex` as the main document and pdfLaTeX as the compiler.
 
-## Run the Lean projects
-
-Both projects pin Lean 4.19.0 and their mathlib dependency. With the Lean toolchain manager installed, run:
+## Reproduce the numerical illustrations
 
 ```bash
-cd foundations/lean
-lake exe cache get
-python3 verify.py
-cd ../../finance/lean
-lake exe cache get
-python3 verify.py
+python3 -m pip install -r requirements.txt
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/reproduce.py
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/optimal_gain.py
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/learn_operator.py
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 experiments/observed_audit.py
 ```
 
-The supplied audits report **35 declarations for foundations and 40 for finance**, with no admitted proofs or custom mathematical axioms. Ten refinement declarations are shared between the standalone projects; the total is not a count of distinct new research results.
+The first script regenerates four figures, two LaTeX tables, and `results/metrics.json`, which records its environment and numerical results. The synthetic random-field experiment uses seed 20260911, 60,000 independent realizations, and a 256-mode finite reference. Gaussian matrix ODEs use DOP853 with rtol 1e-11 and atol 1e-13.
 
-The projects mechanize selected finite probabilistic, algebraic, and geometric results. General disintegration, infinite-dimensional limits, concentration results, continuous-time stochastic control, and bicausal stopping remain written proofs. Read the declaration-level [foundations coverage map](foundations/lean/COVERAGE.md) and [finance coverage map](finance/lean/COVERAGE.md) for the exact boundaries.
+The first script contains the original explicit-kernel experiments. The optimal-gain script computes the exact energy amplification and reconstructs attaining error vectors. The learned-operator script trains three preselected 37-parameter shared spectral networks and a context ablation on noisy field coefficients, then performs an independent conditional audit. No real-data benchmark superiority is claimed. Nonlinear coupling RMS values are distinguished from optimal Wasserstein distances and from deterministic theorem bounds. All examples use synthetic data and require no credentials or external datasets.
 
-## Reproduce the experiments
+## Files
 
-Install the dependencies from the relevant paper's `requirements.txt`, then follow its README. The scripts and saved parameters use synthetic data and require no credentials or external market datasets.
+- `Generative_Neural_Operators.tex`: main LaTeX document.
+- `sections/`: complete manuscript text and proofs.
+- `references.bib`: verified bibliography using plainnat.
+- `figures/`: seven publication figures in PNG format.
+- `tables/`: generated LaTeX tables.
+- `experiments/reproduce.py`: self-contained numerical reproduction and formula checks.
+- `experiments/optimal_gain.py`: exact energy gains and attaining errors.
+- `experiments/learn_operator.py`: training, ablation, and independent validation.
+- `models/`: seven learned parameter files in portable JSON.
+- `results/metrics.json`: full results, sampling errors, and package versions.
+- `results/learned_operator.json` and `results/optimal_gain.json`: new experimental records.
+- `results/revision_validation.json`: executed reproduction and proof-audit summary.
+- `Generative_Neural_Operators.pdf`: compiled manuscript.
 
-| Folder | Programs |
-|---|---|
-| [Foundations experiments](foundations/experiments/) | Explicit-kernel illustrations, exact energy gains, shared spectral network training, and observed-sample conditional audits |
-| [Finance experiments](finance/experiments/) | Filtering and accounting examples, a learned reserve-rate model, and event-count-based inference with robust execution |
+The results concern the stated mathematical model classes and population errors. The Gaussian audit uses a known conditional mean. The bounded-detail audit uses observed fields and independent aggregation, under specified support, sufficient-context, regularity, and tail assumptions. Optimization guarantees and performance on market or PDE datasets remain outside its scope.
 
-Each paper includes portable model parameters in `models/`, numerical reports in `results/`, PNG figures, and generated LaTeX tables. The supplied validation records document exact reruns in the recorded environment. Floating-point calculations and empirical diagnostics are separate from exact Lean proofs and statistical coverage statements. The experiments do not establish exchange-data calibration or trading profitability.
+## Lean verification
 
-## Review and verification records
+The lean directory is an independently buildable Lean 4.19.0 project pinned to mathlib v4.19.0. Its 35 theorem declarations pass compilation and an axiom audit. The project proves the finite conditional regression identity, real Hilbert orthogonality identities, the finite refinement comparison and exponential bound, properties of the stated Gaussian midpoint formula, a metric two-point bound, and a fiber-factorization theorem.
 
-- [Technical assessment of both papers](review/Technical_Assessment.md): an internal technical review, with the reviewer's role and remaining scientific limitations disclosed.
-- [Foundations document audit](foundations/results/document_audit.json) and [finance document audit](finance/results/document_audit.json): PDF, citation, contents-link, and layout checks.
-- [Foundations reproduction record](foundations/results/revision_validation.json) and [finance reproduction record](finance/results/revision_validation.json): executed numerical checks and source hashes.
-- [Foundations Lean audit](foundations/lean/verification.json) and [finance Lean audit](finance/lean/verification.json): checked declarations, axiom dependencies, and source hashes.
+~~~bash
+cd lean
+lake exe cache get
+python3 verify.py
+~~~
 
-`MANIFEST_SHA256.txt` inventories the repository snapshot. Each paper also retains its own package inventory and complete build instructions.
+The coverage map, build log, axiom log, exact dependency manifest, and machine-readable source-hash report are included. Appendix A explains the precise formalization boundary. In particular, the probability-kernel coupling construction and the infinite-dimensional existence results are written proofs, not fully mechanized results. There are no admitted proofs or custom mathematical axioms in the supplied Lean code.
+
+## Learned model and validation protocol
+
+The networks use 8,192 independent training fields through 32 modes, 1,800 Adam steps, and projected global sensitivity constraints. An independent audit uses 65,536 fields through 256 modes. The simultaneous 99% statement covers all three full-context models and 255 detail bands; the separate context ablation is not part of that joint confidence statement. Training seeds and hyperparameters are fixed before the audit.
+
+CPU float64 and deterministic single-threaded PyTorch are used. All weights are saved as portable JSON in models/, without executable pickles. Results are in results/learned_operator.json and results/optimal_gain.json. Coupling costs, plug-in recurrence estimates, confidence bounds, and unresolved tails are distinct quantities. The known synthetic conditional mean is used only by the audit, not as a training label.
+
+The new Lean module derives a finite weighted joint-coupling step from its actual probability law. The isolated-seed theorem checks the finite product underlying the sharp robustness threshold. The exact two-dimensional spectral upper bound, characteristic identity, attainment, and energy specialization are checked in Lean. Optimal measurable coupling, hierarchy-wide attainment, concentration, and infinite limits remain written proofs.
+
+## Observed-sample audit and observation geometry
+
+`experiments/observed_audit.py` trains three 24-parameter models on 16,384 noisy fields through eight modes. Independent calibration and aggregation splits audit 31 later modes using three predeclared budgets. The joint 99% event covers every candidate, cutoff, and budget. The audit does not call the target conditional mean. It uses exact one-dimensional empirical-to-uniform transport, a bounded-support DKW certificate, and Hoeffding aggregation. A separate truth diagnostic evaluates a specified coupling.
+
+`results/observed_audit.json` records both the generic prefix recurrence and the tighter dependency-sensitive certificate, all confidence inputs and diagnostic values. Three additional model JSON files, one table, and two figures are generated. Riesz-coordinate and bi-Lipschitz decoder results identify how the physical metric changes. Lean additionally checks triangular dependency propagation, two-coordinate Gram bounds, finite coupling metric transfer, and a finite unseen-cell lower bound. Statistical coverage and floating-point arithmetic are distinct claims.
+
+## Standing academic LaTeX format
+
+Use the author's established academic format for this and future papers: 11pt article; 1.08-inch margins; 1.08 line spacing; 1.25em paragraph indentation and no paragraph skip; small captions with bold labels; concealed link styling; natbib/plainnat; the Miquel Noguer i Alonso / Artificial Intelligence Finance Institute (AIFI) author block; and an actual `\today` date. The front matter includes a clickable table of contents covering sections and subsections, the appendix, and references. The contents and main text begin on fresh pages. Running headers, footers, and printed page numbers remain omitted. DOI links are separate title-page identifiers. `Academic_LaTeX_Format.md` records the reusable specification.

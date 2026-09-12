@@ -1,0 +1,221 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Acciaio et~al.(2025)Acciaio, Hou, and Pammer]{acciaio2025}
+Beatrice Acciaio, Songyan Hou, and Gudmund Pammer.
+\newblock Entropic adapted {Wasserstein} distance on {Gaussians}, 2025.
+\newblock URL \url{https://arxiv.org/abs/2412.18794v2}.
+\newblock arXiv:2412.18794, version 2.
+
+\bibitem[Albergo and Vanden-Eijnden(2023)]{albergo2023}
+Michael~S. Albergo and Eric Vanden-Eijnden.
+\newblock Building normalizing flows with stochastic interpolants.
+\newblock In \emph{International Conference on Learning Representations}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2209.15571}.
+
+\bibitem[Bukin and Krugova(2018)]{bukin2018}
+Dmitry~B. Bukin and Elena~P. Krugova.
+\newblock Transportation costs for optimal and triangular transformations of
+  {Gaussian} measures.
+\newblock \emph{Theory of Stochastic Processes}, 23\penalty0 (2):\penalty0
+  21--32, 2018.
+\newblock URL \url{https://tsp.imath.kiev.ua/files/2320/art2320_03.pdf}.
+
+\bibitem[Calvello et~al.(2024)Calvello, Kovachki, Levine, and
+  Stuart]{calvello2024}
+Edoardo Calvello, Nikola~B. Kovachki, Matthew~E. Levine, and Andrew~M. Stuart.
+\newblock Continuum attention for neural operators, 2024.
+\newblock URL \url{https://arxiv.org/abs/2406.06486}.
+\newblock arXiv:2406.06486.
+
+\bibitem[Chemseddine et~al.(2025)Chemseddine, Hagemann, Steidl, and
+  Wald]{chemseddine2025}
+Jannis Chemseddine, Paul Hagemann, Gabriele Steidl, and Christian Wald.
+\newblock Conditional {Wasserstein} distances with applications in {Bayesian
+  OT} flow matching.
+\newblock \emph{Journal of Machine Learning Research}, 26\penalty0
+  (141):\penalty0 1--47, 2025.
+\newblock URL \url{https://jmlr.org/papers/v26/24-0586.html}.
+
+\bibitem[Chen and Vanden-Eijnden(2026)]{chen2026}
+Yifan Chen and Eric Vanden-Eijnden.
+\newblock Scale-adaptive generative flows for multiscale scientific data, 2026.
+\newblock URL \url{https://arxiv.org/abs/2509.02971v2}.
+\newblock arXiv:2509.02971, version 2.
+
+\bibitem[Chorin et~al.(2002)Chorin, Hald, and Kupferman]{chorin2002}
+Alexandre~J. Chorin, Ole~H. Hald, and Raz Kupferman.
+\newblock Optimal prediction with memory.
+\newblock \emph{Physica D: Nonlinear Phenomena}, 166\penalty0 (3--4):\penalty0
+  239--257, 2002.
+\newblock \doi{10.1016/S0167-2789(02)00446-3}.
+\newblock URL \url{https://doi.org/10.1016/S0167-2789(02)00446-3}.
+
+\bibitem[de~Moura and Ullrich(2021)]{demoura2021}
+Leonardo de~Moura and Sebastian Ullrich.
+\newblock The {Lean 4} theorem prover and programming language.
+\newblock In \emph{Automated Deduction---CADE 28}, volume 12699 of
+  \emph{Lecture Notes in Computer Science}, pages 625--635. Springer, 2021.
+\newblock \doi{10.1007/978-3-030-79876-5_37}.
+\newblock URL
+  \url{https://link.springer.com/chapter/10.1007/978-3-030-79876-5_37}.
+
+\bibitem[Geiger and Temmel(2012)]{geiger2014}
+Bernhard~C. Geiger and Christoph Temmel.
+\newblock Lumpings of {Markov} chains, entropy rate preservation, and
+  higher-order lumpability, 2012.
+\newblock URL \url{https://arxiv.org/abs/1212.4375}.
+\newblock arXiv:1212.4375.
+
+\bibitem[Gelbrich(1990)]{gelbrich1990}
+Matthias Gelbrich.
+\newblock On a formula for the {$L^2$ Wasserstein} metric between measures on
+  {Euclidean} and {Hilbert} spaces.
+\newblock \emph{Mathematische Nachrichten}, 147\penalty0 (1):\penalty0
+  185--203, 1990.
+\newblock \doi{10.1002/mana.19901470121}.
+\newblock URL
+  \url{https://onlinelibrary.wiley.com/doi/10.1002/mana.19901470121}.
+
+\bibitem[Hoeffding(1963)]{hoeffding1963}
+Wassily Hoeffding.
+\newblock Probability inequalities for sums of bounded random variables.
+\newblock \emph{Journal of the American Statistical Association}, 58\penalty0
+  (301):\penalty0 13--30, 1963.
+\newblock \doi{10.1080/01621459.1963.10500830}.
+\newblock URL \url{https://doi.org/10.1080/01621459.1963.10500830}.
+
+\bibitem[Hosseini et~al.(2025)Hosseini, Hsu, and Taghvaei]{hosseini2025}
+Bamdad Hosseini, Alexander~W. Hsu, and Amirhossein Taghvaei.
+\newblock Conditional optimal transport on function spaces.
+\newblock \emph{SIAM/ASA Journal on Uncertainty Quantification}, 13\penalty0
+  (1):\penalty0 304--338, 2025.
+\newblock \doi{10.1137/23M1618922}.
+\newblock URL \url{https://epubs.siam.org/doi/10.1137/23M1618922}.
+
+\bibitem[Irons et~al.(2022)Irons, Scetbon, Pal, and Harchaoui]{irons2022}
+Nicholas~J. Irons, Meyer Scetbon, Soumik Pal, and Zaid Harchaoui.
+\newblock Triangular flows for generative modeling: Statistical consistency,
+  smoothness classes, and fast rates.
+\newblock In \emph{Proceedings of the 25th International Conference on
+  Artificial Intelligence and Statistics}, volume 151 of \emph{Proceedings of
+  Machine Learning Research}, pages 10161--10195. PMLR, 2022.
+\newblock URL \url{https://proceedings.mlr.press/v151/irons22a.html}.
+
+\bibitem[Kallenberg(2021)]{kallenberg2021}
+Olav Kallenberg.
+\newblock \emph{Foundations of Modern Probability}, volume~99 of
+  \emph{Probability Theory and Stochastic Modelling}.
+\newblock Springer, Cham, 3 edition, 2021.
+\newblock \doi{10.1007/978-3-030-61871-1}.
+\newblock URL \url{https://link.springer.com/book/10.1007/978-3-030-61871-1}.
+
+\bibitem[Kerrigan et~al.(2024{\natexlab{a}})Kerrigan, Migliorini, and
+  Smyth]{kerrigan2024conditional}
+Gavin Kerrigan, Giosue Migliorini, and Padhraic Smyth.
+\newblock Dynamic conditional optimal transport through simulation-free flows,
+  2024{\natexlab{a}}.
+\newblock URL \url{https://arxiv.org/abs/2404.04240}.
+\newblock arXiv:2404.04240.
+
+\bibitem[Kerrigan et~al.(2024{\natexlab{b}})Kerrigan, Migliorini, and
+  Smyth]{kerrigan2024functional}
+Gavin Kerrigan, Giosue Migliorini, and Padhraic Smyth.
+\newblock Functional flow matching.
+\newblock In \emph{Proceedings of the 27th International Conference on
+  Artificial Intelligence and Statistics}, volume 238 of \emph{Proceedings of
+  Machine Learning Research}, pages 3934--3942. PMLR, 2024{\natexlab{b}}.
+\newblock URL \url{https://proceedings.mlr.press/v238/kerrigan24a.html}.
+
+\bibitem[Kovachki et~al.(2023)Kovachki, Li, Liu, Azizzadenesheli, Bhattacharya,
+  Stuart, and Anandkumar]{kovachki2023}
+Nikola Kovachki, Zongyi Li, Burigede Liu, Kamyar Azizzadenesheli, Kaushik
+  Bhattacharya, Andrew Stuart, and Anima Anandkumar.
+\newblock Neural operator: Learning maps between function spaces with
+  applications to {PDEs}.
+\newblock \emph{Journal of Machine Learning Research}, 24\penalty0
+  (89):\penalty0 1--97, 2023.
+\newblock URL \url{https://jmlr.org/papers/v24/21-1524.html}.
+
+\bibitem[Lim et~al.(2025)Lim, Kovachki, Baptista, Beckham, Azizzadenesheli,
+  Kossaifi, Voleti, Song, Kreis, Kautz, Pal, Vahdat, and Anandkumar]{lim2025}
+Jae~Hyun Lim, Nikola~B. Kovachki, Ricardo Baptista, Christopher Beckham, Kamyar
+  Azizzadenesheli, Jean Kossaifi, Vikram Voleti, Jiaming Song, Karsten Kreis,
+  Jan Kautz, Christopher Pal, Arash Vahdat, and Anima Anandkumar.
+\newblock Score-based diffusion models in function space.
+\newblock \emph{Journal of Machine Learning Research}, 26\penalty0
+  (158):\penalty0 1--62, 2025.
+\newblock URL \url{https://jmlr.org/papers/v26/23-1472.html}.
+
+\bibitem[Lipman et~al.(2023)Lipman, Chen, Ben-Hamu, Nickel, and Le]{lipman2023}
+Yaron Lipman, Ricky T.~Q. Chen, Heli Ben-Hamu, Maximilian Nickel, and Matt Le.
+\newblock Flow matching for generative modeling.
+\newblock In \emph{International Conference on Learning Representations}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2210.02747}.
+
+\bibitem[Massart(1990)]{massart1990}
+Pascal Massart.
+\newblock The tight constant in the {Dvoretzky--Kiefer--Wolfowitz} inequality.
+\newblock \emph{The Annals of Probability}, 18\penalty0 (3):\penalty0
+  1269--1283, 1990.
+\newblock \doi{10.1214/aop/1176990746}.
+\newblock URL \url{https://doi.org/10.1214/aop/1176990746}.
+
+\bibitem[Maurer and Pontil(2009)]{maurer2009}
+Andreas Maurer and Massimiliano Pontil.
+\newblock Empirical {Bernstein} bounds and sample variance penalization.
+\newblock In \emph{Proceedings of the 22nd Annual Conference on Learning
+  Theory}, 2009.
+\newblock URL \url{https://arxiv.org/abs/0907.3740}.
+
+\bibitem[Pidstrigach et~al.(2025)Pidstrigach, Marzouk, Reich, and
+  Wang]{pidstrigach2025}
+Jakiw Pidstrigach, Youssef Marzouk, Sebastian Reich, and Sven Wang.
+\newblock Infinite-dimensional diffusion models, 2025.
+\newblock URL \url{https://arxiv.org/abs/2302.10130v3}.
+\newblock arXiv:2302.10130, version 3.
+
+\bibitem[Rahman et~al.(2022)Rahman, Florez, Anandkumar, Ross, and
+  Azizzadenesheli]{rahman2022}
+Md~Ashiqur Rahman, Manuel~A. Florez, Anima Anandkumar, Zachary~E. Ross, and
+  Kamyar Azizzadenesheli.
+\newblock Generative adversarial neural operators.
+\newblock \emph{Transactions on Machine Learning Research}, 2022.
+\newblock URL \url{https://openreview.net/forum?id=X1VzbBU6xZ}.
+
+\bibitem[Rosenblatt(1952)]{rosenblatt1952}
+Murray Rosenblatt.
+\newblock Remarks on a multivariate transformation.
+\newblock \emph{The Annals of Mathematical Statistics}, 23\penalty0
+  (3):\penalty0 470--472, 1952.
+\newblock \doi{10.1214/aoms/1177729394}.
+\newblock URL \url{https://doi.org/10.1214/aoms/1177729394}.
+
+\bibitem[Rudolf and Schweizer(2018)]{rudolf2018}
+Daniel Rudolf and Nikolaus Schweizer.
+\newblock Perturbation theory for {Markov} chains via {Wasserstein} distance.
+\newblock \emph{Bernoulli}, 24\penalty0 (4A):\penalty0 2610--2639, 2018.
+\newblock \doi{10.3150/17-BEJ938}.
+\newblock URL \url{https://arxiv.org/abs/1503.04123}.
+
+\bibitem[{The mathlib Community}(2020)]{mathlib2020}
+{The mathlib Community}.
+\newblock The {Lean} mathematical library.
+\newblock In \emph{Proceedings of the 9th ACM SIGPLAN International Conference
+  on Certified Programs and Proofs}, pages 367--381. ACM, 2020.
+\newblock \doi{10.1145/3372885.3373824}.
+\newblock URL \url{https://arxiv.org/abs/1910.09336}.
+
+\bibitem[Villani(2009)]{villani2009}
+C{\'e}dric Villani.
+\newblock \emph{Optimal Transport: Old and New}, volume 338 of
+  \emph{Grundlehren der mathematischen Wissenschaften}.
+\newblock Springer, 2009.
+\newblock \doi{10.1007/978-3-540-71050-9}.
+\newblock URL \url{https://link.springer.com/book/10.1007/978-3-540-71050-9}.
+
+\end{thebibliography}

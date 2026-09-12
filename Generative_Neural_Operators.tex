@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1.08in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{microtype}
+\usepackage{graphicx,booktabs,tabularx,array,float,caption}
+\usepackage{setspace}
+\usepackage[round,authoryear]{natbib}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[section]{placeins}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={The Mathematics of Generative Neural Operators},
+ pdfauthor={Miquel Noguer i Alonso},
+ pdfsubject={DOI: 10.5281/zenodo.22714854}}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\crefname{assumption}{assumption}{assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Law}{\operatorname{Law}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\Ran}{\operatorname{Ran}}
+\newcommand{\Lip}{\operatorname{Lip}}
+\newcommand{\Ptwo}{\mathcal P_2}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\push}{_{\#}}
+\newcommand{\eps}{\varepsilon}
+\setlength{\emergencystretch}{2em}
+\setstretch{1.08}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parindent}{1.25em}
+\setlength{\parskip}{0pt}
+\pagestyle{empty}
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.2em,topsep=0.35em}
+\allowdisplaybreaks[1]
+\title{\textbf{The Mathematics of Generative Neural Operators}\\[0.35em]
+\large Resolution Consistency, Conditional Refinement,\\ and Hidden-State Obstructions}
+\author{Miquel Noguer i Alonso\\
+\small Artificial Intelligence Finance Institute (AIFI)}
+\date{\today}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\begin{center}\small\href{https://doi.org/10.5281/zenodo.22714854}{DOI: 10.5281/zenodo.22714854}\end{center}
+\begin{abstract}
+Generative neural operators learn laws on function spaces, but resolution convergence, agreement of projected samples, and autonomous coarse dynamics impose distinct requirements. We connect these requirements to quantitative approximation and statistical guarantees. For a prescribed interpolation, a conditional-variance identity gives the exact population loss of coarse autonomy; a Gaussian commutation criterion and transport-cost calculation make the obstruction explicit. Conditional refinement instead preserves previously sampled coordinates. Its error satisfies a sharp orthogonal recurrence whose exact energy gain yields a necessary and sufficient squared-sensitivity condition for class-uniform robustness. Under summable fitting errors, the construction defines a genuine Hilbert-valued law. An exact transport decomposition separates unresolved energy, while minimax and kernel-factorization results delimit identifiability and autonomous simulation in physical time. Riesz coordinates and bi-Lipschitz decoders extend the metric comparison beyond orthogonal physical observations. A dependency-sensitive certificate retains the actual architecture's coordinate dependence and avoids unnecessary error propagation. Conditional flow-matching losses and globally bounded spectral networks provide concrete certificate inputs. For bounded scalar details, an independent two-split audit estimates conditional-law error from observed fields without evaluating the target conditional mean. Its simultaneous event covers candidate and resolution selection, subject to explicit support, sufficient-context, regularity, and tail assumptions. Three-seed neural experiments distinguish this certificate from measured coupling error and quantify the cost of statistical uncertainty. A Lean project checks 35 declarations, including finite probabilistic refinement, the exact two-dimensional spectral bound and its attainment, dependency propagation, and observation distortion. The remaining measure-theoretic and statistical arguments are supplied as written proofs with explicit formalization boundaries.
+\end{abstract}
+\noindent\textbf{Keywords:} generative neural operators; conditional transport; flow matching; projective consistency; Wasserstein distance; hidden state; multiresolution analysis.
+\clearpage
+\setcounter{tocdepth}{2}
+\tableofcontents
+\clearpage
+\input{sections/01_introduction}
+\input{sections/02_setting}
+\input{sections/03_obstruction}
+\input{sections/04_refinement}
+\input{sections/05_certificate}
+\input{sections/06_flow_matching}
+\input{sections/07_information_time}
+\input{sections/07_nonorthogonal}
+\input{sections/08_architecture}
+\input{sections/08_observed_audit}
+\addtocontents{toc}{\protect\newpage}
+\input{sections/09_experiments}
+\input{sections/10_application_discussion}
+\FloatBarrier
+\appendix
+\input{sections/11_lean}
+\FloatBarrier
+\bigskip
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{plainnat}
+\begingroup
+\interlinepenalty=10000
+\bibliography{references}
+\endgroup
+\end{document}
