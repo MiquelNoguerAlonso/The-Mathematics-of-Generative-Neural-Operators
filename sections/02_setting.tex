@@ -1,0 +1,39 @@
+\section{Function-space laws and resolution hierarchies}\label{sec:setting}
+Let $H$ be a real separable Hilbert space with norm $\norm{\cdot}$ and let $\Ptwo(H)$ denote its Borel probability measures with finite second moment. For $\alpha,\beta\in\Ptwo(H)$, define
+\begin{equation}
+ W_2^2(\alpha,\beta)=\inf_{\pi\in\Pi(\alpha,\beta)}
+ \int_{H\times H}\norm{u-v}^2\,\pi(\mathrm du,\mathrm dv).
+\end{equation}
+A condition $c$ in a standard Borel space specifies a target kernel $c\mapsto\mu_c$. Unless stated otherwise, all arguments fix $c$ and suppress it. This avoids confusing external conditioning with conditioning on previously generated resolution bands. For jointly measurable kernels the constructions can include $c$ throughout; uniform or integrated conclusions require the corresponding constants to be uniform or integrable in $c$.
+
+\begin{definition}[Generative operator]
+A measurable map $G:C\times Z\to H$, together with a reference probability measure $\nu$ on a standard Borel latent space $Z$, defines the conditional generated law $G(c,\cdot)\push\nu$. A neural operator is a parameterized implementation of such a map, or of the conditional velocities used to construct it.
+\end{definition}
+Measurable representability, continuous operator approximation, statistical learnability, and numerical approximation are separate properties. In particular, a measurable representation theorem below will not assert approximation by a fixed finite neural architecture.
+
+Fix finite-rank orthogonal projections
+\begin{equation}\label{eq:hierarchy}
+ P_{-1}=0,\qquad P_jP_k=P_{\min(j,k)},\qquad P_j\to I\quad\text{strongly}.
+\end{equation}
+Write $H_j=\Ran P_j$, $\Delta_j=P_j-P_{j-1}$, and $E_j=\Ran\Delta_j$. Then
+\begin{equation}
+ H=\overline{\bigoplus_{j\ge0}E_j},\qquad
+ X_j=P_jU,\quad B_j=\Delta_jU,\quad U\sim\mu.
+\end{equation}
+Let $\mu_j=(P_j)\push\mu$, regarded as a law on $H_j$ or embedded in $H$. Fourier bands, wavelet detail spaces, and nested Galerkin spaces fit this setting. Nested observations on irregular grids require a specified inner product and compatible orthogonal reconstruction. Arbitrary point subsampling is not automatically an orthogonal projection.
+
+\begin{definition}[Projective and pathwise consistency]\label{def:consistency}
+A family $\{\widehat\mu_j\}$ is projectively consistent if $(P_j)\push\widehat\mu_k=\widehat\mu_j$ for $j\le k$. A coupled family $\{\widehat X_j\}$ is pathwise consistent if $P_j\widehat X_k=\widehat X_j$ almost surely for $j\le k$. A family of numerical generators is discretization convergent if its reconstructed outputs converge to a specified continuum generator in the stated topology.
+\end{definition}
+Pathwise consistency implies projective consistency. Discretization convergence alone does not require exact equality at any pair of finite resolutions. Likewise, a consistent collection of finite laws need not be supported by $H$ without an energy condition. Independent unit-variance coordinates, for example, give consistent finite Gaussian laws but have infinite squared $\ell^2$ norm almost surely.
+
+\subsection{Reference noise and observation geometry}
+An $H$-valued centered Gaussian reference has a positive self-adjoint trace-class covariance $C$:
+\begin{equation}\label{eq:gaussian-noise}
+ Z=\sum_{k\ge1}\sqrt{\lambda_k}\,\xi_ke_k,
+ \qquad \sum_{k\ge1}\lambda_k<\infty,
+ \qquad \E\norm Z^2=\tr C.
+\end{equation}
+Here $\xi_k$ are independent standard normals and $(e_k)$ is an orthonormal eigenbasis. There is no $H$-valued $\mathcal N(0,I)$ in infinite dimension. Function-space diffusion theory treats this issue directly \citep{pidstrigach2025,lim2025}. In the refinement construction each individual $E_j$ is finite dimensional, so standard Gaussian band noise is legitimate; the existence of the infinite output is proved separately.
+
+The chosen norm specifies the accuracy claim. For $H=L^2(D)$, the error measures integrated field discrepancy and allows discontinuous fields. Point values are not well-defined on $L^2$ equivalence classes. Cell averages and bounded linear functionals are valid observations; point evaluation requires a stronger state space. A Sobolev norm can emphasize derivatives, but only for target laws having the required second moment. Changing the norm changes both the tail energy and the constants in the results below.

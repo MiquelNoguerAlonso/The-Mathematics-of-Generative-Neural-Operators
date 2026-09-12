@@ -1,0 +1,137 @@
+\section{A sharp refinement certificate}\label{sec:certificate}
+Let $\widehat K_j(x,\cdot)\in\Ptwo(E_j)$ be learned detail kernels and let $\widehat\mu_j$ be their sequentially generated laws. The inputs to our bound are a conditional fitting error and a learned context sensitivity:
+\begin{align}\label{eq:kernel-errors}
+ \eps_j^2&=\int_{H_{j-1}}W_2^2(K_j(x,\cdot),\widehat K_j(x,\cdot))\,\mu_{j-1}(\mathrm dx),\\
+ W_2(\widehat K_j(x,\cdot),\widehat K_j(y,\cdot))&\le L_j\norm{x-y}.
+ \label{eq:context-lipschitz}
+\end{align}
+For $j=0$, set $\mu_{-1}=\delta_0$, $L_0=0$. Require \eqref{eq:context-lipschitz} on all contexts needed by a coupling of the true and learned recursions; a global bound on $H_{j-1}$ is a sufficient convenient assumption. The errors in \eqref{eq:kernel-errors} use the \emph{target} context distribution. The sensitivity bound controls how the learned kernel changes when it is fed generated contexts instead.
+
+\begin{theorem}[Orthogonal refinement certificate]\label{thm:certificate}
+Assume \eqref{eq:kernel-errors} is finite and \eqref{eq:context-lipschitz} holds through level $m$. Define
+\begin{equation}\label{eq:sharp-recurrence}
+ d_{-1}=0,\qquad d_j^2=d_{j-1}^2+(\eps_j+L_jd_{j-1})^2.
+\end{equation}
+Then
+\begin{equation}\label{eq:finite-certificate}
+ W_2(\mu_j,\widehat\mu_j)\le d_j\qquad (0\le j\le m).
+\end{equation}
+Writing $\tau_m^2=\E\norm{(I-P_m)U}^2$, the exact identity and its bound are
+\begin{equation}\label{eq:pythagorean-certificate}
+ W_2^2(\mu,\widehat\mu_m)
+ =\tau_m^2+W_2^2(\mu_m,\widehat\mu_m)
+ \le\tau_m^2+d_m^2.
+\end{equation}
+In particular,
+\begin{align}\label{eq:sum-certificate}
+ d_m^2&\le 2\sum_{j=0}^m\eps_j^2
+                \prod_{k=j+1}^m(1+2L_k^2)\notag\\
+ &\le 2\exp\left(2\sum_{k=1}^mL_k^2\right)\sum_{j=0}^m\eps_j^2.
+\end{align}
+If $\sum_jL_j^2<\infty$ and $\sum_j\eps_j^2<\infty$, the learned tower converges almost surely and in mean square to an $H$-valued random element with law $\widehat\mu$, and
+\begin{equation}\label{eq:infinite-certificate}
+ W_2(\mu,\widehat\mu)
+ \le \lim_{m\to\infty}d_m
+ \le\sqrt2\exp\left(\sum_{j\ge1}L_j^2\right)
+             \left(\sum_{j\ge0}\eps_j^2\right)^{1/2}.
+\end{equation}
+\end{theorem}
+\begin{proof}
+Suppose $(X,\widehat X)$ couples $\mu_{j-1}$ and $\widehat\mu_{j-1}$ with $L^2$ distance $D$. Conditional on $(X,\widehat X)=(x,y)$, couple three detail variables with marginal laws
+\[
+ B\sim K_j(x,\cdot),\quad
+ \widetilde B\sim\widehat K_j(x,\cdot),\quad
+ \widehat B\sim\widehat K_j(y,\cdot).
+\]
+Choose optimal couplings for the first two and last two laws and glue them along $\widetilde B$. For the continuous nonnegative cost $\|b-b'\|^2$ on the Polish space $E_j\times E_j$, \citet[Corollary~5.22]{villani2009} supplies Borel selections of optimal plans as measurable functions of their marginals. The target and learned kernels are Borel maps into $\mathcal P_2(E_j)$, so these selections remain measurable in $(x,y)$. Parameterized disintegration of the two plans along their common middle marginal gives a measurable gluing kernel. Its successive sampling defines a genuine joint probability law; the same selection argument can include an external conditioning parameter. Minkowski's inequality and \eqref{eq:kernel-errors}--\eqref{eq:context-lipschitz} give
+\begin{equation}\label{eq:detail-coupling-bound}
+ (\E\norm{B-\widehat B}^2)^{1/2}
+ \le\eps_j+L_jD.
+\end{equation}
+The full discrepancy lies in orthogonal old and new bands, so
+\[
+ \E\norm{(X+B)-(\widehat X+\widehat B)}^2
+ =D^2+\E\norm{B-\widehat B}^2
+ \le D^2+(\eps_j+L_jD)^2.
+\]
+Starting with equal zero contexts and using this construction recursively proves \eqref{eq:finite-certificate}. Finite second moments of the learned outputs also follow inductively: a target-averaged finite fitting error gives finite moments at target contexts, and the Lipschitz bound transfers them to the generated contexts.
+
+For \eqref{eq:pythagorean-certificate}, any coupling $(U,Y)$ with $Y\in H_m$ satisfies
+\[
+ \norm{U-Y}^2=\norm{(I-P_m)U}^2+\norm{P_mU-Y}^2.
+\]
+Taking infima gives the lower inequality in the claimed identity. Conversely, lift an optimal coupling of $(P_m)\push\mu$ and $\widehat\mu_m$ by sampling $U$ from its conditional law given $P_mU$. This realizes the sum of the two optimal terms and proves equality.
+
+Using $(a+b)^2\le2a^2+2b^2$ in \eqref{eq:sharp-recurrence} gives
+\[
+ d_j^2\le(1+2L_j^2)d_{j-1}^2+2\eps_j^2.
+\]
+Iteration and $1+x\le e^x$ prove \eqref{eq:sum-certificate}. Under the infinite summability assumptions, $d_m$ is bounded. The triangle inequality for root second moments yields
+\[
+ (\E\norm{\widehat X_m}^2)^{1/2}
+ \le (\E\norm{P_mU}^2)^{1/2}+W_2(\mu_m,\widehat\mu_m)
+ \le(\E\norm U^2)^{1/2}+\sup_m d_m.
+\]
+The learned energy condition in \Cref{thm:representation} follows. Hence $\widehat\mu_m\to\widehat\mu$ in $W_2$, while $\mu_m\to\mu$ in $W_2$. Taking limits in \eqref{eq:finite-certificate} proves \eqref{eq:infinite-certificate}.
+\end{proof}
+
+\subsection{What orthogonality adds to kernel perturbation theory}\label{sec:comparison}
+The usual triangle-inequality propagation for the appended-state kernel has the comparison update
+\[
+ b_j=\sqrt{1+L_j^2}\,b_{j-1}+\eps_j.
+\]
+Indeed, the learned transition $x\mapsto(x,\widehat B_j(x))$ has Wasserstein sensitivity at most $\sqrt{1+L_j^2}$. Treating fitting as a subsequent unrestricted perturbation then gives the displayed bound, in the spirit of Wasserstein kernel perturbation arguments \citep{rudolf2018}. Our proof instead retains the direction of the new error:
+\begin{equation}\label{eq:orthogonal-improvement}
+ D^2+(\eps+LD)^2\le
+ \bigl(\sqrt{1+L^2}D+\eps\bigr)^2,
+ \qquad D,L,\eps\ge0.
+\end{equation}
+The difference of the right and left sides is
+$2\eps D(\sqrt{1+L^2}-L)\ge0$.
+When $L_j=0$, the generic update accumulates $\sum_j\eps_j$, while the exact orthogonal update accumulates $(\sum_j\eps_j^2)^{1/2}$. With $\eps_j=1/(j+1)$, only the latter remains finite. This is the precise gain: persistence of old coordinates and orthogonality of newly fitted detail improve how perturbations accumulate. Disintegration, optimal-coupling selection, and the underlying Wasserstein inequalities are classical ingredients.
+
+\begin{proposition}[Sharpness of the recurrence]\label{prop:sharpness}
+For any nonnegative finite sequences $(\eps_j)$ and $(L_j)$ with $L_0=0$, equality in \eqref{eq:finite-certificate} can hold at every level.
+\end{proposition}
+\begin{proof}
+Take scalar orthogonal bands, target $\mu=\delta_0$, and $K_j(x,\cdot)=\delta_0$. Define
+\[
+ \widehat K_j(x,\cdot)=\delta_{\eps_j+L_j\norm{x}}.
+\]
+This kernel is $L_j$-Lipschitz in $W_2$, and its error at the only target context $x=0$ is $\eps_j$. The generated vector is deterministic. If its norm before refinement is $d_{j-1}$, the new coordinate is $\eps_j+L_jd_{j-1}$, giving \eqref{eq:sharp-recurrence} exactly. Its distance from $\delta_0$ is its norm.
+\end{proof}
+
+The sharpness statement concerns the general kernel theorem, which includes deterministic kernels. It does not assert equality within the regular Gaussian-reference ODE subclass. The exponential simplification \eqref{eq:sum-certificate} is convenient but not sharp; for context-independent kernels $L_j=0$, the exact recurrence gives $d_m^2=\sum_{j=0}^m\eps_j^2$.
+
+\input{sections/05_optimal_gain}
+\FloatBarrier
+
+\begin{corollary}[Convergence of improving model families]\label{cor:learning-consistency}
+Let a sequence of coherent learned towers be indexed by $n$, with
+\[
+ \sup_n\sum_jL_{n,j}^2<\infty,\qquad \sum_j\eps_{n,j}^2\longrightarrow0.
+\]
+Their infinite laws converge to $\mu$ in $W_2$. If only level $m_n$ is sampled and $\tau_{m_n}\to0$, the finite generated laws also converge to $\mu$ in $W_2$.
+\end{corollary}
+\begin{proof}
+Apply \eqref{eq:infinite-certificate} and \eqref{eq:pythagorean-certificate} with the uniform sensitivity bound.
+\end{proof}
+
+No finite-data convergence rate is asserted here. The corollary identifies the aggregate conditional error and stability conditions that a statistical learning theorem would need to supply. For a specified neural class, \Cref{cor:validated-law} supplies a separate finite-sample audit of these error inputs.
+
+\subsection{Tail energy and the limit of finite-subspace generation}
+\begin{corollary}[Exact optimal truncation error]\label{cor:tail}
+For any $\mu\in\Ptwo(H)$,
+\begin{equation}\label{eq:tail-optimum}
+ \inf_{\eta\in\Ptwo(H_m)}W_2^2(\mu,\eta)
+ =W_2^2(\mu,(P_m)\push\mu)=\tau_m^2.
+\end{equation}
+If a centered Gaussian law has covariance eigenvalues $\lambda_k$ and $P_m$ retains its first $m$ eigenvectors, then $\tau_m^2=\sum_{k>m}\lambda_k$. If $\lambda_k\sim c k^{-2s}$ with $s>1/2$, then
+\begin{equation}
+ \tau_m\sim\sqrt{\frac{c}{2s-1}}\,m^{1/2-s}.
+\end{equation}
+\end{corollary}
+\begin{proof}
+Use the exact identity in \eqref{eq:pythagorean-certificate} and minimize its projected term. The spectral formula follows from Parseval's identity and the asymptotic from the integral test.
+\end{proof}
+The restriction in \eqref{eq:tail-optimum} is that outputs lie in the linear space $H_m$. It is not a general lower bound based only on latent dimension. If the full Gaussian has infinitely many strictly positive eigenvalues, its law and its finite projection are mutually singular even though their $W_2$ distance tends to zero. Accuracy in total variation, relative entropy, and Wasserstein distance must therefore be distinguished.

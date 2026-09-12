@@ -1,0 +1,39 @@
+\section{Application to market fields with hidden liquidity}\label{sec:application}
+Consider a conditional model of future market fields over a price interval and a finite physical-time horizon. An illustrative state is
+\begin{equation}
+ U(\tau,p)=\bigl(B(\tau,p),A(\tau,p),H^b(\tau,p),H^a(\tau,p)\bigr),
+\end{equation}
+where $B,A$ represent displayed depth and $H^b,H^a$ represent latent reserve liquidity. Suitable scaled $L^2$ norms can treat these channels as fields. A separate event state is required when the objective includes queue identities, integer sizes, or matching-rule validity. The continuum field alone does not encode those discrete details.
+
+The forecasting target is the full conditional path law
+\begin{equation}
+ c=\mathcal F_{t_0}^{\mathrm{obs}}
+ \longmapsto\Law\left(U|_{[t_0,t_0+T]}\mid c\right),
+\end{equation}
+with information available at the forecast origin. One can choose orthogonal price aggregations or spectral detail bands inside each field channel. Generating the coarse displayed profile and then finer details gives an exactly consistent resolution family. Hidden liquidity can be added as a separate conditional component, provided its target conditional law is identified or specified by explicit modeling assumptions.
+
+\subsection{Three consequences for model design}
+First, a global flow whose displayed-depth velocity depends on latent reserve coordinates will generally have a positive autonomy defect if those coordinates are removed. Increasing the capacity of a model that still lacks the relevant state does not eliminate the defect for that prescribed flow. A posterior summary or additional predictive state can reduce it according to \Cref{prop:hierarchy-defect}.
+
+Second, reserve liquidity inferred only from displayed depth is not automatically identifiable. If two distinct hidden-state laws produce the same observed data distribution, the two-point argument in \Cref{thm:minimax} applies. The symmetric Hilbert-space example in that theorem is mathematical; for nonnegative reserves one may instead compare two admissible nonnegative completions and obtain half their Wasserstein separation as the lower bound. Execution and replenishment data may distinguish these completions, but this requires an observation model and an identification argument.
+
+Third, online simulation needs the physical-time condition of \Cref{thm:time}. If two full book states have the same displayed aggregate but different future displayed transition laws because their reserve states differ, an autonomous transition based on that aggregate cannot be exact for both. A filtering state such as $\pi_t$ in \eqref{eq:filter-prediction} gives a mathematically defined alternative. Auction regimes, side uncertainty, and replenishment mechanisms can be included in the hidden state without assuming that their values are observed.
+
+The resulting model can therefore have two coupled components: a conditional field generator for spatial resolution and a state-update mechanism for physical-time events. Validity of one does not establish validity of the other. Testing should include conditional depth distributions, cross-price dependence, event-conditioned replenishment, and path functionals relevant to the intended simulator.
+
+\subsection{Downstream observables and the chosen metric}
+If $\Psi:H\to\R$ is $L_\Psi$-Lipschitz, every law certificate $W_2(\mu,\widehat\mu)\le D$ yields
+\begin{equation}\label{eq:observable}
+ \left|\E_\mu\Psi-\E_{\widehat\mu}\Psi\right|\le L_\Psi D.
+\end{equation}
+Indeed, apply the Lipschitz bound to a coupling and then Cauchy--Schwarz. Bounded linear functionals, such as weighted integrated depth, fit this condition. Threshold crossing, queue depletion indicators, and discontinuous event costs do not automatically satisfy it. For those quantities one needs a stronger state metric, boundary-mass control, or a separate distributional estimate. A small integrated field error by itself need not establish accuracy for rare events.
+
+\section{Discussion and open questions}
+The results separate four sources of difficulty: information restrictions on a prescribed bridge, fitting of conditional detail laws, sensitivity to generated contexts, and unresolved function-space energy. The autonomy defect is a conditional-variance obstruction. Conditional refinement changes the probability path and preserves previously generated coordinates. Its error propagates through an orthogonal recurrence, and summability ensures that the entire hierarchy is a probability law on the intended Hilbert space. These statements give a common language for resolution consistency without identifying it with either finite-grid weight sharing or physical-time Markov closure.
+
+Several assumptions set the scope. The Gaussian commutation theorem uses a finite-dimensional spherical reference and a straight independent-endpoint interpolation. The sharp recurrence acts in orthogonal coefficient geometry; \Cref{thm:riesz,cor:nonlinear-decoder} transfer it through stable nonorthogonal or nonlinear representations with explicit distortion. Noninjective observation fibers remain outside that inverse-coordinate argument. For an individual model the summability conditions are sufficient; \Cref{thm:optimal-gain} proves their sharpness for uniform robustness over the full kernel class. The flow-matching corollary assumes regular exact flows and population excess losses. \Cref{thm:spectral-network,cor:validated-law} give architecture-specific energy and sensitivity guarantees and an independent validation certificate; \Cref{thm:observed-audit} adds a conditional-law audit using only observed samples and declared structural constants. None establishes universal approximation or an optimization rate. Conditional sufficiency, global regularity, and a target tail envelope must be justified in each application. Finally, projectively consistent completion determines a possible full law only after its conditional detail laws have been identified or imposed.
+
+Three questions follow directly from the analysis. The first is statistical: can one replace the conservative cellwise audit by sharper conditional-law confidence regions, with complexity adapting to a learned sufficient context and a resolution-uniform error budget? The second is geometric: can the sharp orthogonal recurrence be extended to nonlinear observation fibers with curvature and nonunique reconstruction? The third is dynamic: which finite-dimensional summaries of the filtering distribution retain enough information to make physical-time approximation errors small while preserving useful resolution consistency? These questions require assumptions beyond the present theory, but the defect identities and certificates specify the quantities that such assumptions must control.
+
+\subsection*{Data and code availability}
+The source package includes the complete \LaTeX{} manuscript, the \texttt{plainnat} bibliography, seven PNG figures, mathematical and neural-training reproduction scripts, serialized learned parameters, generated numerical tables, and machine-readable results. The numerical examples use synthetic random variables and require no external datasets, credentials, or proprietary market feeds. The script records package versions and its random seed.

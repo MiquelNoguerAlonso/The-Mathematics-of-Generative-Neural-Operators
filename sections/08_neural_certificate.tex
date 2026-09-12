@@ -1,0 +1,68 @@
+\subsection{A spectral neural architecture with explicit theorem inputs}\label{sec:spectral-network}
+A concrete architecture makes the abstract kernel constants computable. Index scalar orthonormal modes by $j\ge1$ and generate the first coefficient exactly. For $j\ge2$, let $R_j:H_{j-1}\to\R^q$ be linear with $\|R_j\|\le r_j$, and set
+\begin{align}\label{eq:neural-detail}
+ f_\theta(v)&=\sum_{k=1}^w p_k\tanh(a_k^Tv),
+ \qquad p_k\ge0,\quad\sum_kp_k=1,\\
+ \widehat U_j&=s_j\{f_\theta(R_j\widehat X_{j-1})+\sigma_\theta\xi_j\},
+ \qquad s_j\ge0,\quad \xi_j\overset{\mathrm{iid}}\sim N(0,1).\notag
+\end{align}
+The weights are shared across modes; $s_j$ supplies the spectral decay. This is a coefficient-space neural generative operator: its finite outputs are restrictions of one recursively defined field, rather than separate networks indexed by array size. Its finite neural class is deliberately specified; no universality assertion is needed for the following result.
+
+\begin{theorem}[Certified shared spectral generator]\label{thm:spectral-network}
+Suppose $\sum_{j\ge2}s_j^2<\infty$, $0\le\sigma_\theta<\infty$, and the first coefficient has finite second moment. Every parameter vector in \eqref{eq:neural-detail} defines a pathwise consistent law in $\Ptwo(H)$, with
+\begin{equation}\label{eq:neural-energy}
+ \E\|\widehat U\|^2\le\E|U_1|^2+
+ (1+\sigma_\theta^2)\sum_{j\ge2}s_j^2.
+\end{equation}
+Define $K_\theta=\sum_kp_k\|a_k\|$. The implemented kernels satisfy the global context bound
+\begin{equation}\label{eq:neural-lip}
+ L_j\le s_jr_jK_\theta.
+\end{equation}
+If the target detail law is
+$K_j(x)=N(s_jm_j(x),s_j^2a_j^2)$ with $a_j\ge0$, then its exact fitting input is
+\begin{equation}\label{eq:neural-fit}
+ \eps_j^2=s_j^2\left\{\E\left[m_j(X_{j-1})-
+ f_\theta(R_jX_{j-1})\right]^2+(a_j-\sigma_\theta)^2\right\}.
+\end{equation}
+Thus \Cref{thm:certificate} applies directly with \eqref{eq:neural-lip}--\eqref{eq:neural-fit}; if $\sum_js_j^2r_j^2<\infty$ and $\sum_j\eps_j^2<\infty$, its infinite accuracy estimate also applies.
+\end{theorem}
+\begin{proof}
+The convex combination obeys $|f_\theta|\le1$. Independence and centering of each fresh $\xi_j$ give
+$\E[\widehat U_j^2\mid\widehat X_{j-1}]
+=s_j^2(f_\theta^2+\sigma_\theta^2)\le s_j^2(1+\sigma_\theta^2)$.
+Orthogonality and monotone convergence prove \eqref{eq:neural-energy} and the almost-sure and mean-square convergence in \Cref{thm:representation}.
+Since $\tanh$ is $1$-Lipschitz, $f_\theta$ is $K_\theta$-Lipschitz. Coupling two kernels with the same Gaussian innovation proves \eqref{eq:neural-lip}. The one-dimensional Gaussian transport formula gives \eqref{eq:neural-fit}; it remains valid when a variance or $s_j$ vanishes. Finally insert these quantities in \Cref{thm:certificate}.
+\end{proof}
+
+In \Cref{sec:learned-experiment}, $s_j=1/j$ and $R_jx=(x_1,x_{j-1})$. Here $r_2=\sqrt2$ because the first coordinate is duplicated, while $r_j=1$ for $j\ge3$. Constraining each row to $\|a_k\|\le1.3$ gives $K_\theta\le1.3$ for every training iterate and every generated context, including contexts outside the training sample. The learned law exists regardless of whether optimization succeeds. Accuracy is assessed separately.
+
+\subsection{A finite-sample certificate for an independent conditional audit}\label{sec:validation}
+An empirical fitting estimate must include sampling uncertainty. The next corollary uses the empirical Bernstein inequality of \citet[Theorem~4]{maurer2009}; the concentration inequality is established prior work. Its role here is to provide simultaneous inputs to the nonlinear hierarchy certificate.
+
+Fix $K$ candidate networks using training data only. Draw $n\ge2$ independent validation fields from the target law, independently of training. For every candidate and mode $2\le j\le m$, suppose the audit can evaluate
+\[
+ Z_{i,j}=\left[m_j(X^{(i)}_{j-1})-
+ f_\theta(R_jX^{(i)}_{j-1})\right]^2\in[0,B_j].
+\]
+This requires a known conditional mean or a justified conditional-law oracle; noisy coefficients alone do not reveal this loss. Let $\bar Z_j$ and $V_j$ be its sample mean and unbiased sample variance. For $0<\delta<1$, put $q=\log(2K(m-1)/\delta)$ and
+\begin{equation}\label{eq:validation-input}
+ u_j=\min\left\{B_j,\bar Z_j+
+ \sqrt{\frac{2V_jq}{n}}+\frac{7B_jq}{3(n-1)}\right\},\qquad
+ e_j^2=s_j^2\{u_j+(a_j-\sigma_\theta)^2\}.
+\end{equation}
+
+\begin{corollary}[Simultaneous validated law bounds]\label{cor:validated-law}
+With probability at least $1-\delta$, all $K$ candidates simultaneously satisfy, for every $k\le m$,
+\begin{equation}\label{eq:validated-law}
+ W_2^2(\mu,\widehat\mu_k)\le\tau_k^2+\bar d_k^2,
+ \qquad
+ \bar d_1=0,\quad
+ \bar d_j^2=\bar d_{j-1}^2+(e_j+L_j\bar d_{j-1})^2.
+\end{equation}
+The first coefficient is exact as above. An audited first-band error can instead initialize the same recurrence. Validation data may be shared across modes and candidates; independence is required across validation fields and from the fitted candidates.
+\end{corollary}
+\begin{proof}
+Condition on all training data and candidate parameters. Apply the bounded empirical Bernstein inequality to $Z_{i,j}/B_j$, with failure probability $\delta/[K(m-1)]$, omitting deterministic zero-range variables. A union bound gives $\E Z_{i,j}\le u_j$ for every candidate and band. Equations \eqref{eq:neural-fit} and \eqref{eq:validation-input} then imply $\eps_j\le e_j$. Monotonicity of the nonnegative recurrence and \Cref{thm:certificate} prove \eqref{eq:validated-law}. Averaging over the independent training data preserves the probability statement.
+\end{proof}
+
+This is an a posteriori population certificate, not an optimization or minimax learning-rate theorem. It can validate modes beyond the training cutoff when their target conditional laws are available for independent auditing. For unaudited modes one must use a justified envelope, such as $\E Z_j\le B_j$, or withhold an accuracy claim there. Equation \eqref{eq:neural-energy} still establishes that the infinite learned field is well defined.

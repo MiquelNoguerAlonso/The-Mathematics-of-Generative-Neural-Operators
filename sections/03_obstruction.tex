@@ -1,0 +1,111 @@
+\section{The information cost of autonomous coarse dynamics}\label{sec:obstruction}
+Let $(Z,U)$ have any coupling of a reference law and a target law in $\Ptwo(H)$. For the straight interpolation
+\begin{equation}\label{eq:global-bridge}
+ X_s=(1-s)Z+sU,\qquad V=U-Z,\qquad 0\le s\le1,
+\end{equation}
+define $v_s^\star(X_s)=\E[V\mid X_s]$. Conditional expectations are understood in the Hilbert-valued $L^2$ sense, jointly with the time variable. The population flow-matching loss is
+\begin{equation}\label{eq:global-loss}
+ \mathcal L(v)=\int_0^1\E\norm{v_s(X_s)-V}^2\dd s.
+\end{equation}
+Fix an orthogonal projection $P$ and let $Q=I-P$. A velocity is \emph{coarse-autonomous} if $Pv_s(x)=b_s(Px)$ for a measurable $PH$-valued function $b_s$. This is a restriction on available information, independent of the number of model parameters.
+
+\begin{theorem}[Exact autonomy defect]\label{thm:defect}
+Define
+\begin{align}
+ \bar v_s(PX_s)&=\E[Pv_s^\star(X_s)\mid PX_s]=\E[PV\mid PX_s],\\
+ D_P(s)&=\E\norm{Pv_s^\star(X_s)-\bar v_s(PX_s)}^2,
+ \qquad \mathfrak D_P=\int_0^1D_P(s)\dd s.
+\end{align}
+For every square-integrable coarse-autonomous velocity $v$,
+\begin{align}\label{eq:defect-decomposition}
+ \mathcal L(v)-\mathcal L(v^\star)
+ =\mathfrak D_P
+ &+\int_0^1\E\norm{b_s(PX_s)-\bar v_s(PX_s)}^2\dd s\notag\\
+ &+\int_0^1\E\norm{Q(v_s(X_s)-v_s^\star(X_s))}^2\dd s.
+\end{align}
+Thus $\mathfrak D_P$ is the exact excess-loss infimum over this measurable velocity class. It vanishes if and only if $Pv_s^\star(X_s)$ is measurable with respect to $PX_s$ for almost every $s$, up to the relevant null sets.
+\end{theorem}
+\begin{proof}
+Conditional-expectation orthogonality first gives
+\[
+ \mathcal L(v)-\mathcal L(v^\star)
+ =\int_0^1\E\norm{v_s(X_s)-v_s^\star(X_s)}^2\dd s.
+\]
+Split the squared norm into orthogonal $P$ and $Q$ components. In the $P$ component insert $\bar v_s(PX_s)$. The cross term vanishes because $b_s(PX_s)-\bar v_s(PX_s)$ is $PX_s$-measurable and the remaining difference has conditional mean zero. This proves \eqref{eq:defect-decomposition}. The measurable choice $v_s(x)=\bar v_s(Px)+Qv_s^\star(x)$ attains the infimum. The final equivalence is the zero-residual characterization of conditional expectation.
+\end{proof}
+
+The minimizing measurable velocity need not generate a well-posed ODE. Consequently, the theorem is an exact regression statement and a lower bound for any regular neural subclass, rather than an unconditional flow-existence result. Moreover, a positive $\mathfrak D_P$ need not lower-bound the endpoint Wasserstein error: another velocity can reach the same endpoint along a different probability path.
+
+\begin{proposition}[A hierarchy of information restrictions]\label{prop:hierarchy-defect}
+For a finite hierarchy through level $m$, impose
+$\Delta_jv_s(x)=b_{j,s}(P_jx)$ for every $0\le j\le m$, on $H_m$. The exact excess-loss infimum equals
+\begin{equation}\label{eq:hierarchy-defect}
+ \sum_{j=0}^m\int_0^1\E\norm{
+ \Delta_jv_s^\star(X_s)-\E[\Delta_jv_s^\star(X_s)\mid P_jX_s]}^2\dd s.
+\end{equation}
+If the information used for one band is enlarged from a sigma-field $\mathcal G_1$ to $\mathcal G_2\supseteq\mathcal G_1$, its defect decreases by
+\begin{equation}
+ \int_0^1\E\norm{\E[\Delta_jv_s^\star(X_s)\mid\mathcal G_2]
+ -\E[\Delta_jv_s^\star(X_s)\mid\mathcal G_1]}^2\dd s.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Apply Hilbert-space conditional-expectation orthogonality separately to the mutually orthogonal bands. The second identity follows by the tower property and the same orthogonality argument for nested information sets.
+\end{proof}
+The proposition quantifies the value of a retained hidden-state summary for velocity prediction. Zero defect for this particular velocity is weaker than sufficiency for all conditional observables of the endpoint law.
+
+\subsection{Gaussian bridges: an exact commutation criterion}
+We now work in $\R^d$; the spherical Gaussian reference in this subsection is finite dimensional. Let $Z\sim\mathcal N(0,I)$ and $U\sim\mathcal N(0,\Sigma)$ be independent, with $\Sigma$ positive definite. Set
+\begin{equation}\label{eq:gaussian-velocity}
+ C_s=(1-s)^2I+s^2\Sigma,\qquad
+ A_s=(s\Sigma-(1-s)I)C_s^{-1}.
+\end{equation}
+Gaussian regression gives $v_s^\star(x)=A_sx$.
+
+\begin{theorem}[Covariance commutation and autonomous Gaussian bridges]\label{thm:gaussian-commutation}
+For any orthogonal projection $P$ and any $0<s<1$,
+\begin{equation}\label{eq:gaussian-defect}
+ D_P(s)=\tr\left(PA_sQ\,C_{Q\mid P,s}\,QA_s^TP\right),
+\end{equation}
+where, as an operator on $Q\R^d$,
+\begin{equation}
+ C_{Q\mid P,s}=QC_sQ-QC_sP(PC_sP|_{P\R^d})^{-1}PC_sQ.
+\end{equation}
+The following conditions are equivalent:
+\begin{enumerate}[label=(\roman*)]
+\item $D_P(s)=0$ for one $s\in(0,1)$;
+\item $D_P(s)=0$ for every $s\in(0,1)$;
+\item $P\Sigma=\Sigma P$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Conditional on $PX_s$, the residual fine coordinate is centered Gaussian with covariance $C_{Q\mid P,s}$. The unpredicted coarse velocity is $PA_sQ(X_s-\E[X_s\mid PX_s])$, giving \eqref{eq:gaussian-defect}. The Schur complement $C_{Q\mid P,s}$ is positive definite on $Q\R^d$, so the defect is zero exactly when $PA_sQ=0$. Since $A_s$ is symmetric, this is equivalent to $P$ commuting with $A_s$. For $0<s<1$,
+\begin{equation}
+ A_s=\frac1sI-\frac{1-s}{s}C_s^{-1}.
+\end{equation}
+Commutation with $A_s$ is therefore equivalent to commutation with $C_s$, and hence with $\Sigma$. This also proves independence of the chosen interior time.
+\end{proof}
+
+\begin{example}[Two correlated coordinates]\label{ex:gaussian}
+Let $P(x_1,x_2)=(x_1,0)$ and
+\begin{equation}
+ \Sigma=\begin{pmatrix}1&\rho\\\rho&1\end{pmatrix},\qquad |\rho|<1,
+ \qquad a_s=(1-s)^2+s^2.
+\end{equation}
+The off-diagonal velocity coefficient and its information defect are
+\begin{align}\label{eq:rho-defect}
+ (A_s)_{12}&=\frac{\rho s(1-s)}{a_s^2-s^4\rho^2},\\
+ D_P(s)&=\frac{\rho^2s^2(1-s)^2}{a_s(a_s^2-s^4\rho^2)},
+ \qquad D_P(1/2)=\frac{2\rho^2}{4-\rho^2}.
+\end{align}
+For $\rho=0.8$, the midpoint defect is $8/21\simeq0.380952$. The best coarse velocity is $\bar v_{1,s}(x_1)=(2s-1)x_1/a_s$. Replacing the first row of $A_s$ by this coarse-only row attains the restricted population loss infimum, but its joint endpoint covariance differs from $\Sigma$; \Cref{sec:experiments} evaluates the discrepancy.
+\end{example}
+
+\subsection{Marginal evolution and pathwise closure}
+For a smooth bounded cylindrical test function $\varphi$ on $PH$, the bridge satisfies
+\begin{equation}
+ \frac{\mathrm d}{\mathrm ds}\E\varphi(PX_s)
+ =\E\ip{D\varphi(PX_s)}{PV}
+ =\E\ip{D\varphi(PX_s)}{\bar v_s(PX_s)}.
+\end{equation}
+Thus $\bar v_s$ gives the weak continuity equation for the coarse marginals. When its ODE and continuity equation are well posed, it generates those marginals. It does not in general reproduce the projection of individual full-flow trajectories, or the joint law with the fine coordinates. The information defect is precisely the regression obstruction to that stronger closure of the prescribed velocity field.

@@ -1,0 +1,109 @@
+\section{Lean formalization and its scope}\label{sec:lean}
+The accompanying Lean 4 project uses mathlib
+\citep{demoura2021,mathlib2020} to check proof terms for selected universal statements. Its coverage is a strict subset of the paper: a checked real-sequence inequality, for example, still requires a probabilistic argument to supply its hypotheses.
+
+\subsection{The refinement theorem as a formal interface}
+The formal radius uses a count of completed bands:
+\[
+ R_0=0,\qquad
+ R_{n+1}=\sqrt{R_n^2+(\eps_n+L_nR_n)^2}.
+\]
+Thus $R_n=d_{n-1}$ in \eqref{eq:sharp-recurrence}. The declaration
+\texttt{GNO.error\_le\_radius} proves the following statement for arbitrary real sequences:
+if $\eps_n,L_n,D_n\ge0$, $D_0=0$, and
+\[
+ D_{n+1}^2\le D_n^2+(\eps_n+L_nD_n)^2
+ \quad\hbox{for every }n,
+\]
+then $D_n\le R_n$ for every $n$.
+The proof establishes monotonicity of the nonlinear squared update and performs induction. There is no assumed axiom asserting the conclusion.
+
+The project also proves the radius's nonnegativity and monotonicity, its exact squared recursion, its comparison with the linear majorant
+\[
+ A_0=0,\qquad
+ A_{n+1}=(1+2L_n^2)A_n+2\eps_n^2,
+\]
+and the exponential estimate
+\begin{equation}\label{eq:lean-exponential}
+ R_n^2\le
+ 2\exp\left(2\sum_{j<n}L_j^2\right)\sum_{j<n}\eps_j^2.
+\end{equation}
+With the paper's convention $L_0=0$, this is the exponential bound in
+\eqref{eq:sum-certificate}. For context-independent kernels, Lean proves the exact identity
+$R_n^2=\sum_{j<n}\eps_j^2$.
+
+The general analytic interface remains precise. The conditional-coupling proof in
+\Cref{thm:certificate} supplies the squared one-step inequality for Wasserstein errors. That measure-theoretic construction is proved in the manuscript, not encoded in the Lean project. Likewise, the project does not encode disintegration, measurable selections of optimal couplings, or the Hilbert-valued infinite limit. These results are not replaced by declarations with unproved bodies.
+
+\subsection{A finite probabilistic refinement step}
+The declaration \texttt{GNO.finite\_refinement\_step} operates on an actual finite probability law $p_i\ge0$, $\sum_i p_i=1$. Let $X_i,Y_i$ be coupled old contexts and $A_i,B_i,C_i$ be the true, intermediate, and generated scalar details. From
+\[
+ \sum_i p_i\|X_i-Y_i\|^2\le D^2,\qquad
+ \sum_i p_i(A_i-B_i)^2\le\eps^2,\qquad
+ |B_i-C_i|\le L\|X_i-Y_i\|,
+\]
+with $D,\eps,L\ge0$, Lean proves
+\begin{equation}\label{eq:lean-finite-step}
+ \sum_i p_i\{\|X_i-Y_i\|^2+(A_i-C_i)^2\}
+ \le D^2+(\eps+LD)^2.
+\end{equation}
+The proof derives weighted Cauchy--Schwarz and the finite Minkowski bound before combining the two orthogonal cost components. Thus the one-step recurrence is now connected to explicit finite joint random variables, rather than supplied only as an abstract sequence hypothesis. Construction of optimal conditional couplings and passage to general probability kernels remain written analytic arguments. The two component lemmas and this theorem are checked as finite probability statements. The additional declaration \texttt{GNO.isolated\_seed\_product} proves the exact finite product in \eqref{eq:seed-product}. The foundations project contains 35 checked declarations. In addition, \texttt{OptimalGain.lean} defines the largest eigenvalue of an arbitrary real symmetric $2\times2$ matrix, proves its characteristic identity, proves the universal quadratic upper bound, and constructs a nonzero attaining vector including diagonal degeneracies. The exact one-step energy bound used by \Cref{thm:optimal-gain} is therefore mechanized. The induction transferring attainment to the complete conditional-kernel hierarchy and the infinite-product necessity argument remain written proofs.
+
+\subsection{Dependency, observation geometry, and statistical boundaries}
+The dependency module defines a triangular radius by well-founded recursion and proves its comparison and nonnegativity for arbitrary nonnegative sensitivity coefficients. This checks the deterministic propagation in \Cref{thm:dependency}; conditional coupling supplies its probabilistic hypotheses. The observation module proves the exact two-coordinate Gram distortion, transfers a pointwise metric comparison to a normalized finite coupling cost, and proves the two-point squared-loss lower bound for a finite output law on an unobserved feature cell. It does not mechanize the probability that a cell remains unobserved.
+
+The DKW--Massart inequality, random-cell conditioning, kernel mixture argument, Hoeffding aggregation, simultaneous confidence event, Riesz-coordinate measure correspondence, and infinite-dimensional decoder statements remain written analytic proofs. The observed-sample audit is executable Python with stated inputs; it is not represented as a Lean theorem about that program's floating-point output.
+
+\subsection{An exact finite conditional-expectation theorem}
+The regression module proves a finite conditional-expectation identity from its defining weighted averages. Let $c$ index coarse observations and $i$ index unresolved alternatives. For weights $w_{ci}$ with nonzero fiber mass
+$m_c=\sum_iw_{ci}$, define
+\[
+ \bar v_c=\frac{\sum_iw_{ci}v_{ci}}{m_c}.
+\]
+For every coarse predictor $b_c$, the formal theorem establishes
+\begin{align}\label{eq:lean-regression}
+ \sum_{c,i}w_{ci}(v_{ci}-b_c)^2
+ &=\sum_{c,i}w_{ci}(v_{ci}-\bar v_c)^2
+ +\sum_cm_c(\bar v_c-b_c)^2.
+\end{align}
+For nonnegative weights this proves optimality of the conditional mean. After normalization, it gives the scalar finite-probability orthogonality used in \Cref{thm:defect}, for arbitrary finite index types and real values. Null fibers must be omitted.
+
+The general Hilbert-valued conditional expectation in \Cref{thm:defect}, including time integration and almost-everywhere statements, is not formalized by \eqref{eq:lean-regression}. The geometry module separately proves the two- and three-term orthogonal squared-norm identities in an arbitrary real inner-product space.
+
+\subsection{Gaussian and information-theoretic statements}
+For the two-coordinate Gaussian example, Lean defines
+$D_{\rm mid}(\rho)=2\rho^2/(4-\rho^2)$ and proves that it is nonnegative for $\rho^2<1$, strictly positive exactly when $\rho\ne0$, and equal to $8/21$ at $\rho=4/5$. The derivation of this function from Gaussian regression, the matrix commutation theorem, and the triangular Gaussian transport theorem remain written proofs.
+
+The information module proves that in any pseudometric space, two targets at distance at least $2r$ force every common estimate to have maximum error at least $r$. It therefore checks the metric step in \Cref{thm:minimax}; the construction of the indistinguishable probability laws and their exact separation remains in the manuscript.
+
+It also proves a general factorization equivalence. For a surjective observation map $p:X\to C$ and a map $K:X\to Y$, there exists $k:C\to Y$ with $k(p(x))=K(x)$ exactly when $K$ is constant on every fiber of $p$. The target type $Y$ may be a type of probability measures, but the formal statement does not assert measurability of $k$ or construct a measurable randomized sampler. Those are additional analytic ingredients in \Cref{thm:time}.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{.28\textwidth}X@{}}
+\toprule
+Paper result & Mechanized coverage\\
+\midrule
+\Cref{thm:defect} & Exact finite weighted conditional-mean loss decomposition; Hilbert orthogonal norm identities.\\
+\Cref{thm:gaussian-commutation} & Positivity and exact rational value of the stated two-dimensional midpoint formula.\\
+\Cref{thm:certificate} & Finite weighted joint-coupling step; nonlinear recurrence, sequence comparison, linear majorant, exponential bound, and zero-sensitivity identity.\\
+\Cref{thm:optimal-gain} & Exact symmetric $2\times2$ spectral bound, characteristic identity, nonzero attainment, and one-step energy specialization.\\
+\Cref{thm:dependency} & Well-founded triangular recurrence and comparison.\\
+\Cref{thm:riesz,prop:unseen-cell} & Two-coordinate Gram distortion, finite coupling metric transfer, and finite two-point squared-loss obstruction.\\
+\Cref{thm:minimax} & Universal two-point metric lower bound.\\
+\Cref{thm:time} & Fiber-constant factorization for arbitrary types; no measurability claim.\\
+\bottomrule
+\end{tabularx}
+\caption{Checked declarations and their analytic counterparts; coverage is partial in every row.}
+\end{table}
+
+\subsection{Rebuilding and auditing}
+The toolchain is pinned to \texttt{leanprover/lean4:v4.19.0}; mathlib is pinned to its matching release and exact revision in \texttt{lake-manifest.json}. From the \texttt{lean/} directory, run
+\begin{verbatim}
+lake exe cache get
+lake build
+lake env lean Audit.lean
+\end{verbatim}
+Build and axiom-audit logs, a declaration-level coverage map, and source hashes are included. There are no admitted proofs, custom axioms, or unsafe proof shortcuts. Audited dependencies use only propositional extensionality, classical choice, and quotient soundness where needed. The documented executable-path compatibility adjustment changes neither Lean's kernel nor the mathematical declarations.
+
+Formal verification does not establish empirical calibration, successful optimization, floating-point accuracy, or the physical interpretation of latent fields.

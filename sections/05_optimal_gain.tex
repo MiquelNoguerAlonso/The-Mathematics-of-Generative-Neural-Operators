@@ -1,0 +1,60 @@
+\subsection{The exact worst-case energy gain}\label{sec:optimal-gain}
+The individual recurrence is sharp, but its exponential simplification can be loose. We can characterize the best constant when only the aggregate conditional fitting energy is available. This also identifies precisely when a resolution-uniform guarantee is possible over the full kernel class.
+
+For fixed nonnegative sensitivities $(L_j)_{j\ge1}$, define $g_0=1$ and
+\begin{align}\label{eq:optimal-gain}
+ A_j&=(1+L_j^2)g_{j-1},\\
+ g_j&=\frac{A_j+1+\sqrt{(A_j-1)^2+4L_j^2g_{j-1}}}{2}.
+ \notag
+\end{align}
+The index $0$ here denotes the first band, as in \Cref{thm:certificate}.
+
+\begin{theorem}[Optimal energy amplification and its threshold]\label{thm:optimal-gain}
+For every nonnegative error vector $(\eps_0,\ldots,\eps_m)$, the exact recurrence \eqref{eq:sharp-recurrence} satisfies
+\begin{equation}\label{eq:optimal-energy-bound}
+ d_m^2\le g_m\sum_{j=0}^m\eps_j^2.
+\end{equation}
+The factor $g_m$ is the smallest possible uniform constant. Equality is attained by a nonnegative error vector of unit squared sum and by the deterministic kernels in \Cref{prop:sharpness}. Consequently it is also the optimal worst-case constant for the general conditional-kernel theorem, given only those sensitivity bounds and aggregate fitting energy.
+
+Moreover,
+\begin{equation}\label{eq:gain-threshold}
+ \sup_m g_m<\infty
+ \quad\Longleftrightarrow\quad
+ \sum_{j\ge1}L_j^2<\infty.
+\end{equation}
+Thus squared-sensitivity summability is necessary and sufficient for a uniform robustness guarantee over this class. It remains a sufficient, not necessary, condition for the accuracy or existence of any one particular model.
+\end{theorem}
+\begin{proof}
+At the first band $d_0^2=\eps_0^2$, so $g_0=1$ is exact. Suppose the assertion holds through $j-1$. Write
+$u=(\sum_{k<j}\eps_k^2)^{1/2}$ and $v=\eps_j$. Monotonicity of the recurrence bounds the next squared radius by
+\[
+ g_{j-1}u^2+(v+L_j\sqrt{g_{j-1}}u)^2
+ =\begin{pmatrix}u&v\end{pmatrix}
+ \begin{pmatrix}
+ (1+L_j^2)g_{j-1}&L_j\sqrt{g_{j-1}}\\
+ L_j\sqrt{g_{j-1}}&1
+ \end{pmatrix}
+ \begin{pmatrix}u\\v\end{pmatrix}.
+\]
+Its largest eigenvalue is exactly \eqref{eq:optimal-gain}. The spectral bound gives \eqref{eq:optimal-energy-bound}. This argument uses a two-dimensional matrix only; the coordinate dimension of the generated field is irrelevant.
+
+For sharpness choose a unit eigenvector for the largest eigenvalue with nonnegative coordinates $(u,v)$. Such a choice exists because the off-diagonal entry is nonnegative: replacing either coordinate by its absolute value does not lower the quadratic form. Scale an attaining error vector from the previous step by $u$ and append $v$. The recurrence is homogeneous, so the resulting vector has unit squared sum and attains $g_j$. When the off-diagonal entry is zero, the larger diagonal coordinate gives the same conclusion, including the degenerate identity matrix. Induction and \Cref{prop:sharpness} establish attainment by actual kernels.
+
+If the sensitivity square sum is finite, \eqref{eq:sum-certificate} gives
+$g_m\le2\exp(2\sum_{j\ge1}L_j^2)$, uniformly in $m$. Conversely, take $\eps_0=1$ and all later fitting errors zero. The exact recurrence gives
+\begin{equation}\label{eq:seed-product}
+ d_m^2=\prod_{j=1}^m(1+L_j^2)\le g_m.
+\end{equation}
+This product diverges when $\sum_jL_j^2=\infty$: either infinitely many squared sensitivities exceed one, or eventually
+$\log(1+L_j^2)\ge L_j^2/2$.
+This proves necessity. In the attaining deterministic construction, the diverging product also prevents a Hilbert-valued finite-energy limiting output, even though the entire fitting error is confined to the first band.
+\end{proof}
+
+Equation \eqref{eq:optimal-gain} is useful when validation supplies only a total fitting-energy budget. With separate bandwise errors, the original recurrence can be smaller and should be retained. The gain theorem concerns unrestricted conditional kernels; equality need not be achievable by the smooth neural family of \Cref{sec:spectral-network}. It gives an exact stability threshold for the abstract class rather than a new convergence claim for every trained architecture.
+
+The program \texttt{experiments/optimal\_gain.py} reconstructs the attaining error vector from the successive two-dimensional eigenvectors and verifies its recurrence directly. It also compares $\sqrt{g_m}$ with the exponential majorant for three sensitivity schedules; the numerical table reports finite levels, while \eqref{eq:gain-threshold} supplies the infinite conclusion.
+\begin{table}[htbp]
+\centering\small
+\input{tables/optimal_gain}
+\caption{Exact aggregate-error gains for $L_j=0.5j^{-p}$. Each entry compares the optimal gain $\sqrt{g_m}$ with the sufficient exponential gain $\sqrt2\exp(\sum_{j=1}^mL_j^2)$. Only $p>1/2$ admits a bounded infinite-hierarchy gain.}\label{tab:optimal-gain}
+\end{table}

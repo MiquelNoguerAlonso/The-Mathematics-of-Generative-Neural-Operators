@@ -1,0 +1,65 @@
+\section{Nonorthogonal observations and the metric of refinement}\label{sec:riesz}
+Orthogonal modes are a useful coordinate system, but physical measurements need not be orthogonal. Finite-element coefficients, overlapping spatial averages, and learned invertible linear encoders introduce a Gram matrix. The relevant question is whether this geometry remains controlled as resolution increases.
+
+Let $\mathcal Z=\bigoplus_{j\ge0}E_j$ be the orthogonal coefficient space and let $A:\mathcal Z\to H$ be a bounded linear bijection with bounded inverse. Suppose
+\begin{equation}\label{eq:riesz-bounds}
+ a\|z\|_{\mathcal Z}^2\le\|Az\|_H^2\le b\|z\|_{\mathcal Z}^2,
+ \qquad 0<a\le b<\infty.
+\end{equation}
+Write $Q_m$ for the coefficient truncation and $\Pi_m=AQ_mA^{-1}$ for the physical observation projection. The $\Pi_m$ are nested bounded projections, but generally are not orthogonal in the original physical inner product. Define the equivalent metric
+\[
+ d_A(u,v)=\|A^{-1}(u-v)\|_{\mathcal Z}.
+\]
+For a physical target $\mu$, put $\nu=(A^{-1})_\#\mu$ and let $\widehat\nu_m$ be a coefficient generator satisfying the hypotheses of \Cref{thm:certificate}. Its physical output is $\widehat\mu_m=A_\#\widehat\nu_m$.
+
+\begin{theorem}[A refinement certificate in Riesz coordinates]\label{thm:riesz}
+Let $d_m$ be the coefficient recurrence and let
+$\theta_m^2=\int\|(I-Q_m)z\|^2\,\nu(\dd z)$. Then
+\begin{align}\label{eq:riesz-certificate}
+ W_{2,d_A}^2(\mu,\widehat\mu_m)
+ &=\theta_m^2+W_2^2((Q_m)_\#\nu,\widehat\nu_m)
+ \le\theta_m^2+d_m^2,\\
+ aW_{2,d_A}^2(\mu,\widehat\mu_m)
+ &\le W_{2,H}^2(\mu,\widehat\mu_m)
+ \le bW_{2,d_A}^2(\mu,\widehat\mu_m).\notag
+\end{align}
+The generated samples satisfy $\Pi_k\widehat U_m=\widehat U_k$ for $k\le m$. If the coefficient fitting and sensitivity squares are summable, the physical outputs converge almost surely and in mean square to an $H$-valued law, and the same upper bound holds in the limit with $d_\infty$ and zero tail. The factors $a,b$ are optimal when they are the best constants in \eqref{eq:riesz-bounds}.
+\end{theorem}
+\begin{proof}
+The bijection $(z,w)\mapsto(Az,Aw)$ identifies all couplings of coefficient laws with all couplings of their physical images. Thus $W_{2,d_A}$ is exactly coefficient-space $W_2$. Apply \Cref{thm:certificate} there. Integrating \eqref{eq:riesz-bounds} under a coupling and taking infima gives both physical-metric inequalities; the inverse map supplies the required converse comparison of infima. The identity $\Pi_k A Q_m=AQ_k$ proves sample consistency. Boundedness of $A$ transfers coefficient convergence to physical convergence. Finally, Dirac pairs $(\delta_0,\delta_z)$ have squared distance ratio $\|Az\|^2/\|z\|^2$. Vectors approaching either extremal Rayleigh quotient show that either constant cannot be improved uniformly.
+\end{proof}
+
+\begin{example}[The missing cross term]
+For $|c|<1$, take
+\[
+ A_c=\begin{pmatrix}1&c\\0&\sqrt{1-c^2}\end{pmatrix},\qquad
+ A_c^TA_c=\begin{pmatrix}1&c\\c&1\end{pmatrix}.
+\]
+The exact squared physical error of a coefficient discrepancy $(x,y)$ is
+$x^2+y^2+2cxy$, whereas an unweighted coefficient certificate uses $x^2+y^2$. The optimal comparison constants are $a=1-|c|$ and $b=1+|c|$. For $c>0$ and $x=y$, omitting the Gram correction underestimates squared error by the factor $1+c$. As $|c|\uparrow1$, the inverse-coordinate problem becomes ill-conditioned even though the forward upper factor stays below two.
+\end{example}
+
+For a family of finite encoders $A_m$, uniform upper bounds on $\|A_m\|$ transfer coefficient accuracy to physical accuracy. Uniform lower bounds are additionally needed for stable recovery of coordinates from physical observations. A family of arbitrary encoders does not by itself specify one infinite operator $A$ or one nested observation system. Those compatibility assumptions are substantive, not consequences of good finite condition numbers. In finite dimensions the Gram matrix $G=A^*A$ can also be included directly in the training loss: $z^TGz$ is the physical squared norm. Whitening recovers an orthogonal metric, but a whitening transform that mixes all bands can change the chosen observation hierarchy.
+
+\subsection{Nonlinear decoders and observation fibers}
+The same distinction persists for a nonlinear representation. Let $F:\mathcal Z\to\mathcal X$ be a measurable bijection onto its image with measurable inverse and
+\[
+ \ell\|z-w\|\le d_{\mathcal X}(Fz,Fw)\le L\|z-w\|,
+ \qquad 0<\ell\le L.
+\]
+Define observable coarse outputs by $\mathcal O_m(Fz)=F(Q_mz)$. This is a specific nonlinear observation hierarchy, not an arbitrary collection of physical sensors.
+
+\begin{corollary}[Bi-Lipschitz observation fibers]\label{cor:nonlinear-decoder}
+For targets and generated laws supported on $F(\mathcal Z)$,
+\[
+ \ell W_{2,\mathcal Z}(\nu,\widehat\nu_m)
+ \le W_{2,\mathcal X}(F_\#\nu,F_\#\widehat\nu_m)
+ \le L\sqrt{\theta_m^2+d_m^2}.
+\]
+Moreover $\mathcal O_k(\widehat U_m)=\widehat U_k$ for $k\le m$.
+\end{corollary}
+\begin{proof}
+Push every coefficient coupling through $F$ for the upper bound and pull every image coupling through $F^{-1}$ for the lower bound. The observation identity follows from $Q_kQ_m=Q_k$. The argument uses only metric comparison and does not assert a Pythagorean identity in $\mathcal X$.
+\end{proof}
+
+These extensions locate the geometric assumption precisely. The sharp recurrence acts in a metric where old and new coordinates are orthogonal. A stable decoder transfers the certificate, with an explicit distortion cost. Noninjective decoders can still transfer an upper bound by their Lipschitz constant, but do not generally define $F^{-1}$ or a well-defined observation map on their image.

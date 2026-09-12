@@ -1,0 +1,101 @@
+\section{From conditional flow matching to a law certificate}\label{sec:fm}
+The kernel theorem applies to any conditional generator. We now provide its inputs for detail-band flow matching. At fixed $j$ and target context $x$, use \eqref{eq:conditional-bridge} and define
+\begin{equation}\label{eq:conditional-loss}
+ \mathcal L_{j,x}(w)=\int_0^1\E\norm{
+ w(r,I^x_{j,r};x)-(B_j^x-Z_j)}^2\dd r.
+\end{equation}
+The expectation samples $B_j^x$ and $Z_j$ independently. In actual training, drawing $U\sim\mu$ gives the joint pair $(P_{j-1}U,\Delta_jU)$; repeated samples at an identical context are not required to define or estimate the joint regression objective.
+
+\begin{assumption}[Regular conditional flows]\label{ass:regular}
+For $\mu_{j-1}$-almost every $x$, the exact field $w_j^\star$ and learned field $\widehat w_j$ are jointly measurable and their ODEs have nonexplosive solutions on $[0,1]$ for $\nu_j$-almost every initial value. The exact flow has marginal law $\Law(I^x_{j,r})$ at each time. The learned field obeys the uniform one-sided Lipschitz estimate
+\begin{equation}\label{eq:osl}
+ \ip{z-z'}{\widehat w_j(r,z;x)-\widehat w_j(r,z';x)}
+ \le\ell_j(r)\norm{z-z'}^2,
+\end{equation}
+where $\ell_j\in L^1(0,1)$. For the fitting assertion this condition is required at target-almost-every context. For the global context assertion below it is required at every context in a common domain containing both target and generated contexts, with the same $\ell_j$; the learned flows must exist throughout that domain. All losses used below are finite.
+\end{assumption}
+One sufficient route to the exact marginal assumption is an integrable global Lipschitz bound and growth bound for $w_j^\star$: the conditional-expectation calculation gives the weak continuity equation, and uniqueness identifies its marginals with the ODE flow. These regularity conditions can fail near singular endpoints. Our general kernel representation covers such laws, but the ODE corollary applies only when its stated flow assumptions hold. Choice of reference spectrum and interpolation schedule can materially affect these assumptions \citep{chen2026}.
+
+\begin{theorem}[Conditional excess loss controls conditional law error]\label{thm:flow-certificate}
+Under \Cref{ass:regular}, set
+\begin{align}
+ \mathcal E_j&=\int\bigl[\mathcal L_{j,x}(\widehat w_j)-
+                         \mathcal L_{j,x}(w_j^\star)\bigr]\,\mu_{j-1}(\mathrm dx),
+ \label{eq:excess}\\
+ A_j&=\int_0^1\exp\left(2\int_r^1\ell_j(t)\dd t\right)\dd r.
+\end{align}
+For the exact numerical-time solution of the learned ODE, denoted by the kernel $\widehat K_j^{\mathrm{ode}}$, one has
+\begin{equation}\label{eq:loss-to-kernel}
+ \int W_2^2(K_j(x,\cdot),\widehat K_j^{\mathrm{ode}}(x,\cdot))\,
+           \mu_{j-1}(\mathrm dx)\le A_j\mathcal E_j.
+\end{equation}
+If, on all required contexts,
+\begin{equation}\label{eq:context-field}
+ \norm{\widehat w_j(r,z;x)-\widehat w_j(r,z;y)}
+ \le b_j(r)\norm{x-y},\qquad b_j\in L^1(0,1),\quad b_j\ge0,
+\end{equation}
+and the learned ODE exists there, then its kernel satisfies
+\begin{equation}\label{eq:context-integral}
+ L_j^{\mathrm{ode}}\le\int_0^1
+ \exp\left(\int_r^1\ell_j(t)\dd t\right)b_j(r)\dd r.
+\end{equation}
+\end{theorem}
+\begin{proof}
+By conditional-expectation orthogonality,
+\begin{equation}\label{eq:fm-orthogonality}
+ \mathcal L_{j,x}(\widehat w_j)-\mathcal L_{j,x}(w_j^\star)
+ =\int_0^1\E\norm{\widehat w_j(r,I^x_{j,r};x)-w_j^\star(r,I^x_{j,r};x)}^2\dd r.
+\end{equation}
+Couple exact and learned flows $Y^\star,Y$ using the same initial $Z_j$. Splitting the velocity difference at $Y_r^\star$ and using \eqref{eq:osl} gives the norm comparison
+\[
+ \frac{\mathrm d}{\mathrm dr}\norm{Y_r-Y_r^\star}
+ \le\ell_j(r)\norm{Y_r-Y_r^\star}
+  +\norm{\widehat w_j(r,Y_r^\star;x)-w_j^\star(r,Y_r^\star;x)}
+\]
+in the usual almost-everywhere comparison sense; a regularized norm justifies the step at zero. The initial difference is zero. Gronwall's inequality, Minkowski's inequality in $L^2(\Omega)$, and Cauchy--Schwarz in time imply
+\[
+ \bigl(\E\norm{Y_1-Y_1^\star}^2\bigr)^{1/2}
+ \le\sqrt{A_j}\,
+ \bigl(\mathcal L_{j,x}(\widehat w_j)-\mathcal L_{j,x}(w_j^\star)\bigr)^{1/2}.
+\]
+The exact flow has terminal law $K_j(x,\cdot)$ and the right intermediate marginals by assumption. Square and integrate in $x$ to obtain \eqref{eq:loss-to-kernel}.
+
+For \eqref{eq:context-integral}, couple two learned flows with contexts $x,y$ and the same initial sample from the context-independent reference $\nu_j$. The same norm comparison has forcing $b_j(r)\norm{x-y}$. Integration gives a pathwise terminal Lipschitz bound, which also bounds the $W_2$ distance of the two conditional kernels.
+\end{proof}
+
+If $\ell_j(r)=\ell_j$ is constant, $A_j=(e^{2\ell_j}-1)/(2\ell_j)$ for $\ell_j\ne0$, and $A_j=1$ for $\ell_j=0$. Negative one-sided constants improve the bound. The estimate concerns the learned velocity's stability and errors evaluated under the exact conditional interpolation, avoiding an unquantified change to generated training-time states.
+
+\subsection{Numerical integration and implemented context stability}
+Let the implemented kernel be $\widehat K_j^h$ and suppose a numerical error bound is available:
+\begin{equation}
+ \eta_j^2=\int W_2^2(\widehat K_j^{\mathrm{ode}}(x,\cdot),
+                            \widehat K_j^h(x,\cdot))\,\mu_{j-1}(\mathrm dx).
+\end{equation}
+Triangle and Minkowski inequalities give the valid theorem input
+\begin{equation}\label{eq:total-band-error}
+ \eps_j\le\sqrt{A_j\mathcal E_j}+\eta_j.
+\end{equation}
+The context constant in \Cref{thm:certificate} must apply to the implemented kernel. A solver error estimate alone does not transfer the exact-flow Lipschitz constant to the numerical map.
+
+For example, consider explicit Euler steps with lengths $h_n$, state Lipschitz constants $M_n$, one-sided constants $\ell_n$, and context constants $b_n$. Set
+\begin{equation}
+ a_n=\sqrt{1+2h_n\ell_n+h_n^2M_n^2}.
+\end{equation}
+The update $z\mapsto z+h_n\widehat w(t_n,z;x)$ is $a_n$-Lipschitz in $z$, as follows by expanding its squared increment. Coupling initial noises gives the implemented context estimate
+\begin{equation}\label{eq:euler-context}
+ L_j^h\le\sum_{n=0}^{N-1}h_nb_n\prod_{k=n+1}^{N-1}a_k.
+\end{equation}
+Other integrators can be handled through their actual update maps. Projection of every update onto $E_j$ preserves earlier coordinates exactly.
+
+\begin{corollary}[Training-to-law certificate]\label{cor:training-law}
+Under the flow and numerical assumptions above, use
+\[
+ e_j=\sqrt{A_j\mathcal E_j}+\eta_j
+\]
+and verified implemented context constants $L_j^h$ in \eqref{eq:sharp-recurrence}. Then \eqref{eq:pythagorean-certificate} holds with the resulting $d_m$. If $\sum_j e_j^2<\infty$ and $\sum_j(L_j^h)^2<\infty$, the implemented refinement tower defines a law in $\Ptwo(H)$ and obeys \eqref{eq:infinite-certificate} with these inputs.
+\end{corollary}
+\begin{proof}
+Combine \Cref{thm:flow-certificate}, \eqref{eq:total-band-error}, and \Cref{thm:certificate}. The recurrence is monotone in every nonnegative error input.
+\end{proof}
+
+The population excess $\mathcal E_j$ is not the empirical training loss. One can conservatively replace it by the raw population loss because the optimal conditional loss is nonnegative, but that substitution retains irreducible regression variance and need not tend to zero. Approximation and optimization guarantees, and finite-sample confidence bounds for general flow classes, require additional statistical arguments. The theorem makes their required role explicit. \Cref{cor:validated-law} gives one finite-sample certificate for the separate Gaussian conditional architecture developed next.

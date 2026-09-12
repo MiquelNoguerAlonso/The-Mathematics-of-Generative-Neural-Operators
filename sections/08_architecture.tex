@@ -1,0 +1,53 @@
+\section{Operator implementation and admissible outputs}\label{sec:architecture}
+The refinement kernels can be implemented by Fourier, integral, or attention-based neural operators. A generic function-space layer is
+\begin{equation}\label{eq:operator-layer}
+ v_{\ell+1}(x)=\sigma\left(W_\ell v_\ell(x)
+       +\int_D k_{\theta,\ell}(x,y)v_\ell(y)\dd y+b_\ell(x)\right).
+\end{equation}
+For detail refinement, one may use a shared parameter vector and set
+\begin{equation}\label{eq:band-velocity}
+ \widehat w_{\theta,j}(r,z;x,c)
+ =\Delta_j\mathcal V_\theta(r,x+z,P_{j-1}x,j,c).
+\end{equation}
+The band index or its scale embedding specifies the requested refinement. Projection by $\Delta_j$ ensures the output velocity belongs to the new band. At finite resolution this can be imposed by coefficient masking in an orthonormal basis. Earlier coefficients are copied rather than regenerated.
+
+Parameter sharing across levels is compatible with the construction. The existence theorem, however, supplies a measurable random-field law, not uniform continuity of every sample map nor universal approximation by one fixed finite network. A particular architecture must separately provide bounds on approximation, conditional context sensitivity, and numerical consistency. The summability condition on $L_j$ is sufficient and can be restrictive; energy-normalized bands can have large sensitivities even when unnormalized details decay.
+
+\input{sections/08_neural_certificate}
+
+\subsection{Attention, quadrature, and norms}
+For bounded fields, a normalized integral attention operator has the form
+\begin{equation}\label{eq:attention}
+ \mathcal A[v](x)=
+ \frac{\int_D\exp(\ip{q(x,v(x))}{k(y,v(y))}/\sqrt d)\,Vv(y)\dd y}
+      {\int_D\exp(\ip{q(x,v(x))}{k(y,v(y))}/\sqrt d)\dd y}.
+\end{equation}
+Its quadrature realization uses weights $w_i$ in both numerator and denominator. On an irregular grid, ordinary unweighted softmax integrates against the empirical sampling measure; it need not approximate the intended physical measure. Continuum attention and its discretizations are studied by \citet{calvello2024}. Likewise, a grid loss approximating an $L^2$ norm must use consistent quadrature:
+\begin{equation}
+ \norm{v-u}_{L^2(D)}^2\approx\sum_iw_i\norm{v(x_i)-u(x_i)}^2.
+\end{equation}
+A change in node count should not silently change the metric defining the training certificate.
+
+\subsection{Convex constraints and frozen coarse coordinates}
+\begin{proposition}[Projection onto admissible sets]\label{prop:constraints}
+Let $\mathcal C\subset H$ be nonempty, closed, and convex, and suppose $\mu(\mathcal C)=1$. Its Hilbert-space metric projection satisfies
+\begin{equation}
+ W_2((\Pi_{\mathcal C})\push\eta,\mu)\le W_2(\eta,\mu),
+ \qquad \eta\in\Ptwo(H).
+\end{equation}
+At a fixed coarse context $x$, the same statement applies to a nonempty closed convex detail set $\mathcal C_j(x)\subset E_j$ containing the support of $K_j(x,\cdot)$.
+\end{proposition}
+\begin{proof}
+Metric projection onto a closed convex set is nonexpansive and fixes every point of the set. Project the generated component of any coupling with the target and compare squared distances; then take infima. Apply the same argument in $E_j$ for the conditional statement.
+\end{proof}
+Global constraint projection can modify previously generated coarse coordinates. To retain pathwise consistency, project only the new detail in a feasible fiber $\mathcal C_j(x)$. Such a fiber must be nonempty at generated contexts. Its dependence on $x$ can change the context Lipschitz constant, which must be checked for the resulting kernel. Positivity or affine conservation may admit convex formulations. Integer queue sizes, matching priorities, and event-valid paths require additional discrete mechanisms and are not covered merely by this convex projection result.
+
+\subsection{A concrete training and sampling procedure}
+\begin{enumerate}
+\item Choose the state norm, orthogonal hierarchy, external conditioning information, and a reference law $\nu_j$ for each detail band.
+\item From each training field $U$, form $x=P_{j-1}U$ and $b=\Delta_jU$. Draw independent $z\sim\nu_j$ and $r\sim\mathrm{Unif}(0,1)$.
+\item Regress $\widehat w_{\theta,j}(r,(1-r)z+rb;x,c)$ against $b-z$ using the appropriate band norm. Regularize or constrain state and context sensitivities when useful.
+\item At sampling time, integrate the detail flow conditional on the already generated coarse state, and append the resulting detail without modifying earlier bands.
+\item Evaluate projected distribution errors, conditional errors on held-out paired resolutions, and physical or discrete admissibility in the metrics actually claimed. Apply the certificate only with justified population-error and stability inputs.
+\end{enumerate}
+If training data contain only $P_mU$, the detail pairs for levels above $m$ are unavailable. Parameter sharing can encode an extrapolation assumption, but it does not remove the identification barrier of \Cref{thm:minimax}.

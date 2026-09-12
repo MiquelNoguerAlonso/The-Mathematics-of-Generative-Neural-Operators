@@ -1,0 +1,66 @@
+\section{What observations identify, and what physical time requires}\label{sec:information}
+Resolution consistency is a property of the generated family. It cannot by itself identify unobserved conditional laws. The next result quantifies the issue without any neural approximation assumptions.
+
+\begin{theorem}[Exact minimax radius of unresolved completion]\label{thm:minimax}
+Let $P$ be an orthogonal projection with $(I-P)H\ne\{0\}$, let $\gamma\in\Ptwo(PH)$, and suppose the entire observed law $\gamma$ is known. For $r\ge0$, define
+\begin{equation}
+ \mathcal M(\gamma,r)=\{\mu\in\Ptwo(H):P\push\mu=\gamma,
+              \ \int\norm{(I-P)u}^2\,\mu(\mathrm du)\le r^2\}.
+\end{equation}
+Then
+\begin{equation}\label{eq:minimax-radius}
+ \inf_{\eta\in\Ptwo(H)}\sup_{\mu\in\mathcal M(\gamma,r)}W_2(\eta,\mu)=r.
+\end{equation}
+The same lower bound holds for the maximum expected error of any estimator based on any number of independent projected observations. Without a bound on unresolved energy, the minimax radius is infinite.
+\end{theorem}
+\begin{proof}
+Embed $\gamma$ in $H$ by setting the unobserved component to zero. For this choice $\eta=\gamma$, the exact orthogonal transport identity gives $W_2^2(\eta,\mu)\le r^2$ for every member of the class.
+
+For the lower bound choose a unit $e\in(I-P)H$ and $Y\sim\gamma$. The laws $\mu_\pm=\Law(Y\pm re)$ belong to the class, have identical projected observations, and satisfy $W_2(\mu_+,\mu_-)=2r$. The coupling with the same $Y$ attains this value; Jensen's inequality applied to the difference of the means gives the lower bound. By the triangle inequality, every $\eta$ is at distance at least $r$ from one of them. For a random estimator based on projected data, the data law is identical under $\mu_+$ and $\mu_-$. Integrate the pointwise triangle inequality under this common data law to get the same maximum expected-error lower bound. Letting $r\to\infty$ proves the final assertion.
+\end{proof}
+
+This is an oracle-observation result: it remains true when the observed distribution is known perfectly. More observations at the same projection can reduce estimation error for $\gamma$ but cannot select the missing conditional detail law. Additional resolutions, structural assumptions, or identifying measurements are needed. With general observations $\mathcal O(U)$, any two full laws having the same observation law yield the corresponding two-point lower bound $\frac12W_2(\mu_+,\mu_-)$. Independent observation noise does not distinguish completions that already have identical noiseless observation laws.
+
+\subsection{An autonomous simulator in physical time}
+The time variable of a generative flow is artificial. A different question arises when a simulator is required to evolve online in physical time while its coarse transition is determined only by its present coarse state. Let $K(x,\cdot)\in\Ptwo(H)$ be a Markov transition kernel and write $Y_t=PX_t$.
+
+\begin{theorem}[Kernel criterion for autonomous coarse simulation]\label{thm:time}
+There exist measurable sampling maps $F$ and $f$, driven by independent uniform innovations $\xi,\eta$, such that for every $x\in H$
+\begin{equation}\label{eq:time-sampler}
+ \Law(F(x,\xi,\eta))=K(x,\cdot),\qquad
+ PF(x,\xi,\eta)=f(Px,\xi)\quad\text{almost surely},
+\end{equation}
+if and only if the projected kernel is constant on every observation fiber:
+\begin{equation}\label{eq:lumpability}
+ P\push K(x,\cdot)=P\push K(x',\cdot)\qquad\text{whenever }Px=Px'.
+\end{equation}
+When this condition fails, any proposed coarse kernel $\overline K$ satisfies
+\begin{equation}\label{eq:time-radius}
+ \sup_x W_2(P\push K(x,\cdot),\overline K(Px,\cdot))
+ \ge\frac12\sup_{Px=Px'}W_2(P\push K(x,\cdot),P\push K(x',\cdot)).
+\end{equation}
+\end{theorem}
+\begin{proof}
+If \eqref{eq:time-sampler} holds, the distribution of the projected output depends only on $Px$, proving necessity. Conversely, let $\overline K(y,\cdot)$ be the common projected law; because $P$ is a retraction onto $PH$, the measurable choice $\overline K(y)=P\push K(y)$ suffices. Randomize this kernel to obtain $f(y,\xi)$. Parameterized disintegration of $K(x,\cdot)$ with respect to its projected output supplies a residual kernel on $(I-P)H$, conditional on $(x,y')$. Randomize it with an independent $\eta$ to obtain $R(x,y',\eta)$. Then
+\[
+ F(x,\xi,\eta)=f(Px,\xi)+R(x,f(Px,\xi),\eta)
+\]
+has the required law and projection. These disintegration and randomization operations are available on the standard Borel spaces in question. Finally, apply the triangle inequality through $\overline K(Px)$ to each pair in the same fiber and take suprema.
+\end{proof}
+
+Condition \eqref{eq:lumpability} is the classical strong lumpability condition, expressed here as a sampling-map requirement; related finite-state theory is discussed by \citet{geiger2014}. The quantification over every initial full state is essential. A projected process can be Markov under a special initial distribution even when the all-state condition fails.
+
+\begin{example}[A hidden sign determines the next coarse value]
+Consider two full states with the same observed coordinate $y=0$ and hidden coordinate $h=+a$ or $h=-a$. Suppose the next observed value is deterministically $h$. The projected transition laws are $\delta_a$ and $\delta_{-a}$. Every coarse-only transition approximation has worst-case $W_2$ error at least $a$, attained by the common choice $\delta_0$.
+\end{example}
+
+A coarse-first generator of a complete path is not automatically an online Markov simulator. Whole-path conditional generation may use all coordinates of a sampled path during artificial transport without observing future market data. An online simulator imposes a different information restriction. If $X_t$ is Markov, its conditional state law
+\begin{equation}
+ \pi_t=\Law(X_t\mid Y_0,\ldots,Y_t)
+\end{equation}
+is sufficient for the next observation prediction:
+\begin{equation}\label{eq:filter-prediction}
+ \Law(Y_{t+1}\mid Y_0,\ldots,Y_t)
+ =\int P\push K(x,\cdot)\,\pi_t(\mathrm dx).
+\end{equation}
+Approximating this belief state or retaining predictive memory is therefore a principled response when $Y_t$ alone is insufficient. The distinction between conditional-expectation prediction and closure with memory has a long history in reduced dynamics \citep{chorin2002}. The velocity defect in \Cref{thm:defect} quantifies one associated information loss for a specified generative bridge, while \Cref{thm:time} concerns entire physical-time transition laws.

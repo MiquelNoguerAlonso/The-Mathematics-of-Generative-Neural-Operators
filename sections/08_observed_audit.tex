@@ -1,0 +1,125 @@
+\section{Statistical certification from observed fields}\label{sec:observed-audit}
+The audit in \Cref{cor:validated-law} evaluates a conditional mean that may be unavailable in data. We now replace that oracle by empirical conditional distributions. The price is explicit: bounded scalar detail bands, regularity in a finite-dimensional sufficient context, and enough observations in that context space. The method certifies a trained generator; it does not assume that its optimizer finds the target.
+
+\subsection{An empirical transport bound on a bounded interval}
+For laws $P,Q$ supported on an interval of diameter $D$, the quantile coupling and the one-dimensional $W_1$ identity give
+\begin{equation}\label{eq:cdf-transport}
+ W_2^2(P,Q)\le D W_1(P,Q)
+ =D\int|F_P(u)-F_Q(u)|\,\dd u
+ \le D^2\|F_P-F_Q\|_\infty.
+\end{equation}
+The first inequality uses $|x-y|^2\le D|x-y|$ on this support. Consequently, for an empirical law $P_n$ based on $n$ independent samples, the Dvoretzky--Kiefer--Wolfowitz--Massart inequality \citep{massart1990} implies
+\begin{equation}\label{eq:empirical-w2}
+ W_2(P,P_n)\le D\left\{\frac{\log(2/\alpha)}{2n}\right\}^{1/4}
+\end{equation}
+with probability at least $1-\alpha$, with the right side capped at $D$. The fourth-root rate is a conservative distribution-free consequence for $W_2$; additional density assumptions can improve it. No continuity of the target distribution is required.
+
+\subsection{Independent calibration and aggregation}
+Consider $J$ audited scalar detail bands and $K$ trained candidates. All candidate parameters, partitions, and constants below are fixed using training data, before either audit split is inspected. At band $j$, suppose
+\[
+ K_j(x)=k_j(R_jx),\qquad
+ \widehat K_j^{(k)}(x)=\widehat k_j^{(k)}(R_jx),
+\]
+where $R_j:H_{j-1}\to\R^{q_j}$ is a known bounded linear summary. Thus $R_jx$ is sufficient for the target detail law as well as an input to the model. On the relevant feature domain assume
+\begin{equation}\label{eq:feature-regularity}
+ W_2(k_j(v),k_j(w))\le A_j\|v-w\|,\qquad
+ W_2(\widehat k_j^{(k)}(v),\widehat k_j^{(k)}(w))\le B_j^{(k)}\|v-w\|.
+\end{equation}
+The target and all candidates are supported on a known interval $I_j$ of diameter $D_j$. Partition the target feature support into finitely many Borel cells $C_{jc}$, each of diameter at most $h_{jc}$, and choose a representative $v_{jc}\in C_{jc}$. Put $M=\sum_j\#\{c\}$.
+
+Draw a calibration split of independent target fields. At each band retain the observed pairs $(R_jP_{j-1}U,(P_j-P_{j-1})U)$. Let $n_{jc}$ be the number of features in cell $C_{jc}$ and $P_{jc}$ the empirical law of their scalar details. For $0<\delta<1$, define, when $n_{jc}>0$,
+\begin{align}\label{eq:cell-radius}
+ \kappa_{jc}&=\min\left\{1,\sqrt{\frac{\log(4M/\delta)}{2n_{jc}}}\right\},\\
+ r_{jc}^{(k)}&=\min\left\{D_j,
+ (A_j+B_j^{(k)})h_{jc}
+ w_{jc}^{(k)}+D_j\sqrt{\kappa_{jc}}\right\},\notag
+\end{align}
+where $w_{jc}^{(k)}$ is a computed upper bound on
+$W_2(P_{jc},\widehat k_j^{(k)}(v_{jc}))$. Set $r_{jc}^{(k)}=D_j$ for an empty cell. Exact quantile integration supplies $w$ for the uniform conditional family in the experiment. An approximate numerical or Monte Carlo calculation must supply an upper error allowance, not an unqualified point estimate.
+
+Use a second independent split of $n_v$ target fields to aggregate these cell bounds. If $c_j(i)$ is the cell of its $i$th feature, set
+\begin{equation}\label{eq:observed-error}
+ e_{j,k}^2=\min\left\{D_j^2,
+ \frac1{n_v}\sum_{i=1}^{n_v}(r_{j,c_j(i)}^{(k)})^2
+ +D_j^2\sqrt{\frac{\log(2JK/\delta)}{2n_v}}\right\}.
+\end{equation}
+The aggregation split is needed because the estimated cell radii depend on the calibration counts and details. Reusing those same counts as if they were independent averaging weights would require a different argument.
+
+\begin{theorem}[An observed-sample conditional certificate]\label{thm:observed-audit}
+Under the support, sufficiency, regularity, and independence assumptions above, with probability at least $1-\delta$,
+\[
+ \int W_2^2(K_j(x),\widehat K_j^{(k)}(x))\,\mu_{j-1}(\dd x)
+ \le e_{j,k}^2
+\]
+simultaneously for all audited bands and candidates. For each candidate use
+$L_j^{(k)}=B_j^{(k)}\|R_j\|$ in the refinement recurrence, with the certified $e_{j,k}$ and any separately justified first-band error. Then every retained cutoff has the simultaneous full-law bound
+\begin{equation}\label{eq:observed-full-law}
+ W_2^2(\mu,\widehat\mu_m^{(k)})\le\tau_m^2+\bar d_{m,k}^2.
+\end{equation}
+Candidate and cutoff selection after this audit preserves the same confidence level. The statement requires a justified tail envelope for $\tau_m$; finite observed projections alone cannot certify an unrestricted unseen tail.
+\end{theorem}
+\begin{proof}
+Condition on training. For a cell with positive target mass, its target detail law is the mixture $K_{jc}=\Law(B_j\mid R_jP_{j-1}U\in C_{jc})$. Conditional on the calibration count, the details in that cell are independent draws from this mixture. Equation \eqref{eq:empirical-w2}, with failure probability $\delta/(2M)$, gives
+$W_2(K_{jc},P_{jc})\le D_j\sqrt{\kappa_{jc}}$.
+Conditioning on any positive count and then averaging shows that the same failure budget applies with random counts. Zero-mass cells need no assertion about their conditional law; empty cells receive the support-diameter bound. A union bound over cells and bands gives a simultaneous event of probability at least $1-\delta/2$.
+
+For any target feature $v$ in this cell, mix measurable optimal couplings of $k_j(v)$ and $k_j(w)$ over the conditional feature distribution of $w$ in the cell. The regularity assumption gives
+$W_2(k_j(v),K_{jc})\le A_jh_{jc}$.
+The learned kernel differs from its representative by at most $B_j^{(k)}h_{jc}$. Two applications of the triangle inequality, followed by the diameter cap, therefore bound the conditional discrepancy by $r_{jc}^{(k)}$. The same empirical-cell event works for every candidate; it does not depend on their number.
+
+Now condition on training and calibration. For each $(j,k)$, the squared cell radii evaluated on the aggregation split are independent variables in $[0,D_j^2]$. Hoeffding's bounded-variable inequality \citep{hoeffding1963} and a union bound with per-pair failure probability $\delta/(2JK)$ prove \eqref{eq:observed-error}. Combining the two events gives the fitting bounds with confidence $1-\delta$. \Cref{thm:certificate} and recurrence monotonicity give \eqref{eq:observed-full-law}. The event already covers every prefix and candidate, so selecting a member of this finite family after auditing requires no further probability budget.
+\end{proof}
+
+\subsection{Using the actual dependency of each detail kernel}
+The scalar recurrence in \Cref{thm:certificate} is sharp over its stated kernel class, but an individual architecture may depend on only a few earlier bands. Propagating error in an unused coordinate is then unnecessary. Write a prefix as $x=(x_0,\ldots,x_{j-1})$ and suppose the implemented kernels satisfy
+\begin{equation}\label{eq:dependency-lipschitz}
+ W_2(\widehat K_j(x),\widehat K_j(y))
+ \le\sum_{i<j}b_{ji}\|x_i-y_i\|,\qquad b_{ji}\ge0.
+\end{equation}
+This is a separate, coordinatewise sensitivity bound; it must be established for the actual architecture.
+
+\begin{theorem}[A dependency-sensitive certificate]\label{thm:dependency}
+Let $\eps_j$ be the conditional fitting errors under the true prefixes, as in \Cref{thm:certificate}. Define the triangular recursion
+\begin{equation}\label{eq:dependency-recursion}
+ a_0=\eps_0,\qquad a_j=\eps_j+\sum_{i<j}b_{ji}a_i.
+\end{equation}
+Under \eqref{eq:dependency-lipschitz}, for every finite cutoff $m$,
+\begin{equation}\label{eq:dependency-law}
+ W_2^2(\mu,\widehat\mu_m)\le\tau_m^2+\sum_{j\le m}a_j^2.
+\end{equation}
+Any simultaneous upper bounds on the $\eps_j$ can be substituted in this recursion with the same confidence. In particular, if every detail depends only on a first band sampled exactly, then $a_j=\eps_j$ for all later bands, even though their ordinary prefix Lipschitz constants are positive.
+\end{theorem}
+\begin{proof}
+Construct coupled prefixes successively as in the proof of \Cref{thm:certificate}; no previously sampled coordinate is changed. Let $\delta_i$ be the root mean square discrepancy of the coupled $i$th coordinates. Conditional transport, the triangle inequality, and Minkowski's inequality give
+\[
+ \delta_j\le\eps_j+
+ \left\|\sum_{i<j}b_{ji}\|X_i-Y_i\|\right\|_{L^2}
+ \le\eps_j+\sum_{i<j}b_{ji}\delta_i.
+\]
+Measurable couplings with arbitrarily small excess cost suffice, followed by a limit for each finite cutoff. Induction gives $\delta_j\le a_j$. Orthogonality adds the squared coordinate costs, and the exact tail decomposition gives \eqref{eq:dependency-law}. Nonnegative coefficients make the triangular recursion monotone in every fitting error. If the sole parent band has zero discrepancy, every propagated term vanishes.
+\end{proof}
+
+The finite matrix form is $a=(I-B)^{-1}\eps=(I+B+\cdots+B^m)\eps$, since the strictly lower triangular $B$ is nilpotent at cutoff $m$. Its entries sum the products of sensitivities along directed dependency paths. This supplies an architecture-specific alternative to the class-uniform gain theorem. For an infinite hierarchy, boundedness of this inverse on $\ell^2$ is a sufficient error-propagation condition; an unrestricted infinite triangular matrix need not define a bounded inverse. The experiment below reports both recursions, including the gain from retaining the known dependency structure.
+
+\subsection{What the statistical rate depends on}
+For a regular partition of a compact $q$-dimensional feature domain into cells of diameter of order $h$, suppose each cell has probability at least $c h^q$. A binomial lower-tail inequality and a union bound imply $n_{jc}\ge n c h^q/2$ for every cell with probability at least $1-M\exp(-nch^q/8)$. On this event, the two terms introduced by binning and empirical transport are of orders
+\begin{equation}\label{eq:bin-rate}
+ (A_j+B_j)h
+ \quad\hbox{and}\quad
+ D_j\left(\frac{\log(M/\delta)}{nh^q}\right)^{1/4}.
+\end{equation}
+Balancing these terms gives $h$ of order $(\log n/n)^{1/(q+4)}$ when the regularity and scale constants are fixed. Aggregating a bounded squared radius adds an error of order $D_j^2n_v^{-1/2}$ to its squared bound. These are upper rates for this particular audit, not claimed minimax rates.
+
+The dimension here is the dimension of a valid sufficient context. Replacing the entire prefix by an arbitrary small learned summary without proving sufficiency changes the target conditional law and invalidates the argument. If the full prefix is required, $q$ grows with resolution and the statistical cost can be prohibitive. Conversely, spectral decay of $D_j,A_j,B_j$ can make the sum of certified squared errors finite even when each normalized band is only moderately accurate.
+
+\subsection{An unavoidable sampling obstruction}
+The structural assumptions cannot be replaced by confidence rhetoric. Fix a feature cell of target mass $p$ and let two targets agree everywhere outside it. Inside the cell their scalar detail is respectively zero or $D$, with identical feature laws. Let $N$ be the total number of independent target fields supplied to any fitting and auditing procedure.
+
+\begin{proposition}[Unseen-cell obstruction]\label{prop:unseen-cell}
+On an event of probability $(1-p)^N$, the two targets generate identical observed datasets. On that event, any common output kernel has conditional integrated squared fitting error at least $pD^2/4$ for one of the two targets. Consequently, a procedure that always reports a squared-error bound strictly below $pD^2/4$ cannot have coverage uniformly over both unrestricted targets with failure probability less than $(1-p)^N/2$. A procedure may instead report a wider bound or decline to certify on an unobserved cell.
+\end{proposition}
+\begin{proof}
+Couple all feature samples identically. If none lands in the cell, the observations coincide, as does any randomized output after coupling its seed. At a feature in the cell, the Wasserstein distances of the output law from $\delta_0$ and $\delta_D$ have sum at least $D$. Their squares therefore sum to at least $D^2/2$. Integration over the cell gives a sum of the two fitting errors at least $pD^2/2$, so their maximum is at least $pD^2/4$. On the indistinguishability event, at least one of two purported smaller guarantees fails. Adding their failure probabilities yields at least $(1-p)^N$, proving the final claim.
+\end{proof}
+
+The pair in this obstruction need not satisfy a prescribed small Lipschitz constant across a cell boundary. That is precisely why \eqref{eq:feature-regularity} is an assumption with statistical content. Empty cells, absent action coverage, and unobserved fine-scale energy require either an explicit structural restriction or an appropriately wide uncertainty bound.

@@ -1,0 +1,119 @@
+\section{Conditional refinement with exact projection consistency}\label{sec:refinement}
+The previous obstruction suggests changing the transport construction. Generate a coarse endpoint first and then sample the missing detail conditional on that endpoint. At level $j$, disintegrate the target law as
+\begin{equation}\label{eq:target-kernel}
+ K_j(x,\cdot)=\Law(B_j\mid X_{j-1}=x),\qquad x\in H_{j-1}.
+\end{equation}
+For $j=0$, the context is $X_{-1}=0$ and $K_0(0,\cdot)=\mu_0$. Versions outside the target context support may be defined arbitrarily. Learned kernels below are specified for every context that the learned model can visit.
+
+\begin{theorem}[Coherent conditional representation]\label{thm:representation}
+For every $\mu\in\Ptwo(H)$ and hierarchy \eqref{eq:hierarchy}, there are measurable maps $T_j:H_{j-1}\times(0,1)\to E_j$ such that, with independent uniform random variables $\xi_j$,
+\begin{equation}\label{eq:tower}
+ X_{-1}=0,\qquad B_j=T_j(X_{j-1},\xi_j),\qquad X_j=X_{j-1}+B_j,
+\end{equation}
+has law $\mu_j$ at every level and is pathwise consistent. The series $\sum_{j\ge0}B_j$ converges almost surely in $H$ and in $L^2(\Omega;H)$ to $U^\dagger\sim\mu$.
+
+For arbitrary measurable learned maps $\widehat T_j$ taking values in $E_j$, the analogous recursion is pathwise consistent at every finite level. If
+\begin{equation}\label{eq:learned-energy}
+ \sup_m\E\norm{\widehat X_m}^2<\infty,
+\end{equation}
+then it also defines a unique limiting law $\widehat\mu\in\Ptwo(H)$ whose projections are the generated finite-level laws.
+\end{theorem}
+\begin{proof}
+The spaces involved are standard Borel. Disintegration gives the kernels $K_j$, and kernel randomization gives maps $T_j$ with $(T_j(x,\cdot))\push\mathrm{Unif}(0,1)=K_j(x,\cdot)$; these standard constructions are treated in \citet{kallenberg2021}. Induction using \eqref{eq:target-kernel} proves $\Law(X_j)=\mu_j$. Because $B_j\in E_j$, $P_kX_j=X_k$ for $k\le j$. Orthogonality gives
+\[
+ \E\sum_{j\ge0}\norm{B_j}^2
+ =\lim_m\E\norm{P_mU}^2=\E\norm U^2<\infty.
+\]
+Thus the nonnegative series is finite almost surely, which makes the orthogonal vector series converge in $H$. Its mean-square tail also tends to zero. The limit has all projected laws $\mu_j$; the coordinate sigma-field of a complete countable orthonormal basis generates the Borel sigma-field of $H$, so its law is $\mu$.
+
+For learned maps the same pathwise identity holds algebraically. Under \eqref{eq:learned-energy}, monotone convergence gives $\E\sum_j\norm{\widehat B_j}^2<\infty$. The same argument proves almost-sure and mean-square convergence, and uniqueness follows from the projected laws.
+\end{proof}
+
+The representation is measure theoretic. It includes singular and discrete conditional laws and does not imply that their maps are continuous. A regular ODE implementation requires the additional assumptions in \Cref{sec:fm}. Independent uniforms can be replaced by non-atomic finite-dimensional band references via measurable randomization; no infinite identity-covariance Gaussian is introduced by this representation.
+
+\subsection{Conditional flows within the detail fibers}
+For a fixed coarse state $x\in H_{j-1}$, choose $Z_j\sim\nu_j\in\Ptwo(E_j)$ and $B_j^x\sim K_j(x,\cdot)$ independently, and define
+\begin{equation}\label{eq:conditional-bridge}
+ I^x_{j,r}=(1-r)Z_j+rB_j^x,\qquad
+ w_j^\star(r,z;x)=\E[B_j^x-Z_j\mid I^x_{j,r}=z],\quad 0\le r\le1.
+\end{equation}
+The coarse component $x$ stays fixed. A learned detail flow solves
+\begin{equation}\label{eq:detail-ode}
+ \dot Y_r=\widehat w_j(r,Y_r;x),\qquad Y_0=Z_j,
+ \qquad \widehat T_j(x,Z_j)=Y_1.
+\end{equation}
+Each refinement alters only $E_j$, so numerical integration errors within $E_j$ do not change earlier bands. The construction is a sequence of conditional transports of the type studied in \citet{hosseini2025,kerrigan2024conditional}; its use here is to control an entire orthogonal hierarchy.
+
+For \Cref{ex:gaussian}, first sample $X_1\sim\mathcal N(0,1)$ and then sample $X_2\mid X_1=x\sim\mathcal N(\rho x,1-\rho^2)$. Put $\sigma^2=1-\rho^2$. The conditional interpolation in \eqref{eq:conditional-bridge} has velocity
+\begin{equation}\label{eq:conditional-gaussian-velocity}
+ w^\star(r,y;x)=\rho x+
+ \frac{r\sigma^2-(1-r)}{(1-r)^2+r^2\sigma^2}(y-r\rho x).
+\end{equation}
+Its flow map is
+\begin{equation}\label{eq:conditional-gaussian-map}
+ \Phi_r(z;x)=r\rho x+\sqrt{(1-r)^2+r^2\sigma^2}\,z.
+\end{equation}
+Differentiation verifies \eqref{eq:conditional-gaussian-velocity}; at $r=1$, $\Phi_1(z;x)=\rho x+\sigma z$. Thus the target correlation is reproduced exactly while the coarse endpoint is unchanged. This flow uses a different probability path from the global straight bridge of \Cref{ex:gaussian}.
+
+\subsection{The exact transport cost of Gaussian resolution autonomy}
+The ability to reach a target law does not mean that a resolution-preserving transport has the same cost as an unrestricted one. Triangular Gaussian transport costs and their comparison with unrestricted costs have been studied by \citet{bukin2018}, while \citet{acciaio2025} give Gaussian adapted-transport formulas. The following specialization uses the classical triangular structure \citep{rosenblatt1952,hosseini2025} to connect the resolution order to an explicit autonomous flow and its action. The Gaussian cost comparison itself is established transport geometry.
+
+Work in $\R^d=\bigoplus_{j=0}^mE_j$. Let $Z\sim\mathcal N(0,I)$ and $U\sim\mathcal N(0,\Sigma)$, with $\Sigma>0$. Write $U_{<j}=(U_0,\ldots,U_{j-1})$ and let
+\begin{equation}\label{eq:schur-bands}
+ M_j=\Sigma_{j,<j}\Sigma_{<j,<j}^{-1},\qquad
+ S_j=\Sigma_{jj}-\Sigma_{j,<j}\Sigma_{<j,<j}^{-1}\Sigma_{<j,j}.
+\end{equation}
+At the first band, $M_0U_{<0}=0$ and $S_0=\Sigma_{00}$. A map is \emph{resolution triangular} if its $j$th output band depends only on $(Z_0,\ldots,Z_j)$.
+
+\begin{theorem}[Gaussian transport premium for resolution autonomy]\label{thm:price}
+Among all measurable resolution-triangular maps $T$ satisfying $T\push\mathcal N(0,I)=\mathcal N(0,\Sigma)$, the minimum quadratic displacement cost is
+\begin{equation}\label{eq:triangular-cost}
+ J_{\mathrm{tri}}=\tr\Sigma+d-2\sum_{j=0}^m\tr(S_j^{1/2}).
+\end{equation}
+It is attained by the linear triangular recursion
+\begin{equation}\label{eq:gaussian-triangular-map}
+ U_j=M_jU_{<j}+S_j^{1/2}Z_j,\qquad U=LZ.
+\end{equation}
+The excess over the unrestricted optimal transport cost is
+\begin{equation}\label{eq:transport-premium}
+ J_{\mathrm{tri}}-W_2^2(\mathcal N(0,I),\mathcal N(0,\Sigma))
+ =2\left[\tr(\Sigma^{1/2})-\sum_{j=0}^m\tr(S_j^{1/2})\right]\ge0.
+\end{equation}
+The excess is zero if and only if $\Sigma$ is block diagonal in the resolution decomposition.
+
+Moreover, $J_{\mathrm{tri}}$ is the minimum kinetic action
+$\int_0^1\E\norm{\dot\Phi_s(Z)}^2\dd s$ among absolutely continuous triangular deterministic paths with $\Phi_0=I$ and the prescribed Gaussian terminal law. It is attained by $\Phi_s=(1-s)I+sL$, whose velocity is
+\begin{equation}\label{eq:autonomous-gaussian-flow}
+ v_s(x)=(L-I)((1-s)I+sL)^{-1}x.
+\end{equation}
+Every projected velocity in this construction is autonomous.
+\end{theorem}
+\begin{proof}
+For any triangular map, $U_{<j}$ is a function of $Z_{<j}$, so $Z_j$ remains standard Gaussian conditional on $U_{<j}$. The required target conditional law of $U_j$ is $\mathcal N(M_jU_{<j},S_j)$. The Gaussian transport formula gives
+\[
+ \E[\norm{U_j-Z_j}^2\mid U_{<j}]
+ \ge\norm{M_jU_{<j}}^2+\tr S_j+\dim E_j-2\tr S_j^{1/2}.
+\]
+Summing expectations yields \eqref{eq:triangular-cost}. Recursion \eqref{eq:gaussian-triangular-map} has the required conditional distributions and attains equality band by band.
+
+The unrestricted Gaussian formula gives the difference in \eqref{eq:transport-premium}. To establish its equality condition without a uniqueness assumption, observe that every coupling of $Z$ and $U$ satisfies
+\begin{align}
+ &\E\norm{U-Z}^2-
+   W_2^2(\mathcal N(0,I),\mathcal N(0,\Sigma))\notag\\
+ &\hspace{8mm}=\E\left[(U-\Sigma^{1/2}Z)^T\Sigma^{-1/2}
+                              (U-\Sigma^{1/2}Z)\right].
+\end{align}
+Thus equality forces $U=\Sigma^{1/2}Z$ almost surely. If the triangular optimizer has this property, the matrix $\Sigma^{1/2}$ must be block lower triangular, since $Z$ has full support. It is symmetric, hence block diagonal, and so is $\Sigma$. Conversely, block diagonal $\Sigma$ plainly attains zero excess.
+
+For every absolutely continuous sample path, Cauchy--Schwarz gives
+$\norm{\Phi_1(Z)-Z}^2\le\int_0^1\norm{\dot\Phi_s(Z)}^2\dd s$.
+Its triangular endpoint has cost at least $J_{\mathrm{tri}}$. The straight map path generated by $L$ attains equality. Its diagonal blocks $(1-s)I+sS_j^{1/2}$ are positive definite, so the inverse exists for every $s\in[0,1]$ and is block lower triangular. Formula \eqref{eq:autonomous-gaussian-flow} follows, and its first $j$ output bands depend only on the first $j$ input bands.
+\end{proof}
+
+In two dimensions with correlation $\rho$,
+\begin{align}
+ J_{\mathrm{tri}}&=2-2\sqrt{1-\rho^2},\\
+ W_2^2(\mathcal N(0,I),\mathcal N(0,\Sigma))
+ &=4-2\left(\sqrt{1+\rho}+\sqrt{1-\rho}\right).
+\end{align}
+At $\rho=0.8$, these values are $0.8$ and approximately $0.422291$, giving a premium of $0.377709$. Thus a redesigned Gaussian bridge can remove the autonomy defect and reach the target exactly, while resolution autonomy still has a strictly positive optimal-transport cost when correlations cross resolution bands. The premium and the prescribed-bridge loss defect are different quantities.
