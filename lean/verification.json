@@ -1,0 +1,339 @@
+{
+  "status": "PASS",
+  "lean_version": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
+  "theorem_declarations_checked": 35,
+  "custom_axioms": [],
+  "admitted_proofs": [],
+  "declarations": [
+    {
+      "name": "GNO.dependency_comparison",
+      "source": "GNO/Dependency.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.dependency_radius_nonneg",
+      "source": "GNO/Dependency.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.weighted_cross_bound",
+      "source": "GNO/FiniteCoupling.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.weighted_minkowski_square",
+      "source": "GNO/FiniteCoupling.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.finite_refinement_step",
+      "source": "GNO/FiniteCoupling.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.orthogonal_add_square",
+      "source": "GNO/Geometry.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.orthogonal_three_square",
+      "source": "GNO/Geometry.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.midpointDefect_nonneg",
+      "source": "GNO/Geometry.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.midpointDefect_pos_iff",
+      "source": "GNO/Geometry.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.midpointDefect_four_fifths",
+      "source": "GNO/Geometry.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.two_point_lower_bound",
+      "source": "GNO/Information.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.factors_iff_fiber_constant",
+      "source": "GNO/Information.lean",
+      "axioms": [
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "GNO.gram_distortion",
+      "source": "GNO/Observation.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.finite_decoder_transfer",
+      "source": "GNO/Observation.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.unseen_cell_two_point",
+      "source": "GNO/Observation.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.topEigenvalue_diagonal",
+      "source": "GNO/OptimalGain.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.topEigenvalue_characteristic",
+      "source": "GNO/OptimalGain.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.topEigenvalue_quadratic",
+      "source": "GNO/OptimalGain.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.topEigenvalue_attained",
+      "source": "GNO/OptimalGain.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.optimal_energy_step",
+      "source": "GNO/OptimalGain.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.radius_nonneg",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.radius_sq_succ",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.radius_monotone",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.square_step_monotone",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.error_le_radius",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.radius_step_bound",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.radius_sq_le_linearBound",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.context_independent_exact",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.exponential_certificate",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.add_tail_certificate",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.isolated_seed_product",
+      "source": "GNO/Refinement.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.fiber_centered",
+      "source": "GNO/Regression.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.fiber_regression_identity",
+      "source": "GNO/Regression.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.fiber_mean_minimizes",
+      "source": "GNO/Regression.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "GNO.finite_conditional_regression",
+      "source": "GNO/Regression.lean",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "sha256": {
+    "Audit.lean": "fd51f19bb1843a08ed2742dd617d5df6f6fc8c07a1a438112d07b051ec4bfbb8",
+    "GNO/Dependency.lean": "a28f0e7f88c3ffda9d1c7d2c92cfced149d1e8247f66d7b93948e033c441dfaf",
+    "GNO/FiniteCoupling.lean": "d01867c7e9ce1878f12d7daedb1ffad0787e1f2b7e12f3277165bdda84223837",
+    "GNO/Geometry.lean": "b8d9f26bcc1242bd126959dd1d78890d34df22cb2751ef686be788c42e580bc3",
+    "GNO/Information.lean": "0b4d55023186d284400e54e2cc37bcabaf66c11077304568dbb05fc2cc92fd75",
+    "GNO/Observation.lean": "99f705a276cecb76a53fc193458cc0a96db131a7d3cb28f6442f1efd9e288f57",
+    "GNO/OptimalGain.lean": "5567d3a5424c0519258fa18ff1208deeee8538e0bfb2b46ba52af783a6ee60e1",
+    "GNO/Refinement.lean": "c4d505cbc2d54ff6715f02b53668bfe1641f9658b6b2438b1f316f6f8de9e717",
+    "GNO/Regression.lean": "5f54b5aa677fb5dde938a981b076d0bbeb7ec0e1381de588f5ecaae973849901",
+    "GNO.lean": "01bbf436fd13a5168678c1b90b8aaa0ca4fa8a00a0965221a4b3d9245a7e1412",
+    "lake-manifest.json": "d979c6e46ce4862e63c7e266e77a4b6c6f6651b891bb97a477850377a0041a2c",
+    "lakefile.toml": "68d414e40884fafb6a635719afeb2c3264c27e7b7394a81e0a3468bfd93923b9",
+    "lean-toolchain": "55e97be96000b5e9e290c9e74482e5e317861499a5540353ce845471bded8cea"
+  },
+  "scope": "See COVERAGE.md; no claim that every manuscript theorem is mechanized.",
+  "runtime": "See README.md for any platform-specific executable discovery adjustment."
+}

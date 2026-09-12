@@ -1,0 +1,37 @@
+import GNO
+
+#print axioms GNO.dependency_comparison
+#print axioms GNO.dependency_radius_nonneg
+#print axioms GNO.weighted_cross_bound
+#print axioms GNO.weighted_minkowski_square
+#print axioms GNO.finite_refinement_step
+#print axioms GNO.orthogonal_add_square
+#print axioms GNO.orthogonal_three_square
+#print axioms GNO.midpointDefect_nonneg
+#print axioms GNO.midpointDefect_pos_iff
+#print axioms GNO.midpointDefect_four_fifths
+#print axioms GNO.two_point_lower_bound
+#print axioms GNO.factors_iff_fiber_constant
+#print axioms GNO.gram_distortion
+#print axioms GNO.finite_decoder_transfer
+#print axioms GNO.unseen_cell_two_point
+#print axioms GNO.topEigenvalue_diagonal
+#print axioms GNO.topEigenvalue_characteristic
+#print axioms GNO.topEigenvalue_quadratic
+#print axioms GNO.topEigenvalue_attained
+#print axioms GNO.optimal_energy_step
+#print axioms GNO.radius_nonneg
+#print axioms GNO.radius_sq_succ
+#print axioms GNO.radius_monotone
+#print axioms GNO.square_step_monotone
+#print axioms GNO.error_le_radius
+#print axioms GNO.radius_step_bound
+#print axioms GNO.radius_sq_le_linearBound
+#print axioms GNO.context_independent_exact
+#print axioms GNO.exponential_certificate
+#print axioms GNO.add_tail_certificate
+#print axioms GNO.isolated_seed_product
+#print axioms GNO.fiber_centered
+#print axioms GNO.fiber_regression_identity
+#print axioms GNO.fiber_mean_minimizes
+#print axioms GNO.finite_conditional_regression
