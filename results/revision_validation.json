@@ -1,0 +1,54 @@
+{
+  "numerical_reports_exactly_reproduced": [
+    "optimal_gain.json",
+    "metrics.json",
+    "learned_operator.json",
+    "observed_audit.json"
+  ],
+  "assets_byte_identical": 14,
+  "programs": [
+    "reproduce.py",
+    "optimal_gain.py",
+    "learn_operator.py",
+    "observed_audit.py"
+  ],
+  "lean": 35,
+  "status": "PASS",
+  "date": "2026-09-12",
+  "scope": "Executed reruns in the supplied CPU environment; no promise of bitwise identity on different dependency versions or hardware.",
+  "lean_status": "PASS",
+  "lean_verified_source_hashes_match": true,
+  "lean_custom_axioms": [],
+  "lean_admitted_proofs": [],
+  "numerical_report_sha256": {
+    "optimal_gain.json": "f7704818e514060e533e562f30b2bd5482c4367870626a0e8fc13f1ba15b2071",
+    "metrics.json": "c8a49f0a7e095bef0110998ab0828d896b5e8bb2abd8a6b7751ec80f065c2dba",
+    "learned_operator.json": "6075269fe6a2cfe4530fd1215052bff847f89ab14ccdf96f62b806129214cd31",
+    "observed_audit.json": "0b9ac5f0c60898acba4113aff09d1840c468cefc28e83d0deb9965769c1dc65c"
+  },
+  "program_sha256": {
+    "reproduce.py": "8e94304ef2fada33a23939e19f0440139c30d97a88bd8e6e0aef1fdfe0c1d211",
+    "optimal_gain.py": "f4e6624b66dc037bc4b3601cb3e28d70ea301be9c53102ff91c8fbc64994a9a1",
+    "learn_operator.py": "b2dad14c3bcd6878bbbf7864f86ab3f3eb24389ac1d38adb7dbd611ca80fea2e",
+    "observed_audit.py": "431df3faa4f48498e134e0caeb4b5eeeb64f6563e802de243fad6d4bc1aa16da"
+  },
+  "asset_sha256": {
+    "figures/bridge_obstruction.png": "b94ee1413004c3c012c2eeadffd3fe6964b0a0667df970623fe9b131714d3ab1",
+    "figures/coherent_fields.png": "5bc5966ccf6fa2399a3361d9a90b1e0ebd1bc044aee0871e05b3cd44bf413014",
+    "figures/conditional_refinement.png": "cff25b471c9e07b6d87c26e0474faf04ae13d9039b065a7bf74e8f726f023b47",
+    "figures/learned_operator.png": "600d2eb277bf4192feef117e5c7fc4910f10ef41de5d99d19da02b0d0f212185",
+    "figures/observation_geometry.png": "cac2d25bcd1bb842c11f90538319d8e6e27622260c5ef07e97a93f3eff48c0b6",
+    "figures/observed_audit.png": "0890aad7afaab0f05da258267ef23b5cfa46207f20e89358417af53780b0614e",
+    "figures/refinement_certificate.png": "d2b208959472b5dc483d78d77e78fcb6176c14fe29863150d57c242ec84a4695",
+    "models/observed_generator_481.json": "9795498cc8d3be756fb9306c55b2db0ea3ed597bb0860637943ca09e41e195b7",
+    "models/observed_generator_482.json": "415f071b8747c1d3e23cb9975fb193ee5e5631eab9d04a77e516a789b432d978",
+    "models/observed_generator_483.json": "5fc9867e55734941c7b040d4e7bca1a5302d113dc22b7ce95856191b70f4a902",
+    "models/spectral_generator_20260912.json": "04408fa02a0c98f297728817a0ff458a92023716a579066624182d7f92874311",
+    "models/spectral_generator_20260913.json": "c7d6a08add63119c1be9696fb66204736e0f376fccfda56f02bc0bd0e0931b0d",
+    "models/spectral_generator_20260914.json": "6e303fdbd5cbb3dbb094936e874600ea182d7dafaff3d67fe81ee026a2a94083",
+    "models/spectral_generator_ablation.json": "fd3305e60aebc4f1b350d942459eae9d2250fc806b301707a92ef5900684c1d4"
+  },
+  "pdf_pages": 49,
+  "pdf_sha256": "c3ea90f4776bbef29988d8919a868c602c6f0f32f0f402ec2d1a3801759c7231",
+  "latex_issues": []
+}
