@@ -1,0 +1,195 @@
+{
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8"
+  },
+  "verification": [
+    {
+      "name": "orthogonal_projection_transport_identity",
+      "absolute_residual": 7.105427357601002e-15
+    },
+    {
+      "name": "sharp_multilevel_recurrence",
+      "absolute_residual": 0.0
+    },
+    {
+      "name": "gaussian_obstruction_algebra",
+      "status": "passed"
+    },
+    {
+      "name": "conditional_flow_endpoint",
+      "absolute_residual": 1.379896197306607e-12
+    },
+    {
+      "name": "triangular_transport_premium_and_autonomous_bridge",
+      "absolute_residual": 2.842170943040401e-14
+    }
+  ],
+  "gaussian": [
+    {
+      "rho": 0.25,
+      "defect_midpoint": 0.031746031746031744,
+      "integrated_defect": 0.012519723826974128,
+      "quadrature_error": 3.81746663783816e-15,
+      "triangular_w2": 0.08853901967603119,
+      "triangular_covariance": [
+        [
+          0.9999999999996458,
+          0.12634448585796154
+        ],
+        [
+          0.12634448585796154,
+          0.9842087656580607
+        ]
+      ],
+      "triangular_correlation": 0.12735402582092403,
+      "full_covariance_residual": 3.7547742692822794e-13,
+      "triangular_transport_cost": 0.06350832689629149,
+      "unrestricted_transport_cost": 0.031881214931333,
+      "transport_premium": 0.03162711196495849
+    },
+    {
+      "rho": 0.5,
+      "defect_midpoint": 0.13333333333333333,
+      "integrated_defect": 0.05352358690370278,
+      "quadrature_error": 4.740023689647614e-15,
+      "triangular_w2": 0.17772921671599706,
+      "triangular_covariance": [
+        [
+          1.0000000000002331,
+          0.26197496081476757
+        ],
+        [
+          0.26197496081476757,
+          0.934656283876522
+        ]
+      ],
+      "triangular_correlation": 0.27097786642553545,
+      "full_covariance_residual": 3.277378368693462e-13,
+      "triangular_transport_cost": 0.2679491924311228,
+      "unrestricted_transport_cost": 0.1362966948437272,
+      "transport_premium": 0.1316524975873956
+    },
+    {
+      "rho": 0.8,
+      "defect_midpoint": 0.38095238095238104,
+      "integrated_defect": 0.16583338058675137,
+      "quadrature_error": 3.7726397712093413e-13,
+      "triangular_w2": 0.2812325490207123,
+      "triangular_covariance": [
+        [
+          1.0000000000002953,
+          0.46727947750191584
+        ],
+        [
+          0.46727947750191584,
+          0.8183501100950137
+        ]
+      ],
+      "triangular_correlation": 0.5165437784589145,
+      "full_covariance_residual": 6.374900607397649e-13,
+      "triangular_transport_cost": 0.8000000000000003,
+      "unrestricted_transport_cost": 0.4222912360003366,
+      "transport_premium": 0.3777087639996637
+    },
+    {
+      "rho": 0.95,
+      "defect_midpoint": 0.58272800645682,
+      "integrated_defect": 0.29842711015715545,
+      "quadrature_error": 8.999404389400921e-15,
+      "triangular_w2": 0.30329526345201535,
+      "triangular_covariance": [
+        [
+          1.000000000000015,
+          0.648456294942501
+        ],
+        [
+          0.648456294942501,
+          0.7327454663688817
+        ]
+      ],
+      "triangular_correlation": 0.7575375072572039,
+      "full_covariance_residual": 5.324629626102251e-13,
+      "triangular_transport_cost": 1.3755002001601602,
+      "unrestricted_transport_cost": 0.7599383957462535,
+      "transport_premium": 0.6155618044139066
+    }
+  ],
+  "refinement": {
+    "seed": 20260911,
+    "samples": 60000,
+    "reference_modes": 256,
+    "bias": 0.08,
+    "scale_error": 0.12,
+    "sum_context_lipschitz_squared": 0.4533384268805138,
+    "sum_conditional_errors_squared": 0.013333537075220565,
+    "rows": [
+      {
+        "m": 2,
+        "coupling_rms_to_256_mode_reference": 0.6880460571827953,
+        "coupling_squared_se": 0.001033248540379664,
+        "refinement_certificate": 0.07211102550927978,
+        "tail_energy_upper_bound": 0.7898681336964529,
+        "full_law_w2_upper_bound": 0.89166593166749
+      },
+      {
+        "m": 4,
+        "coupling_rms_to_256_mode_reference": 0.5113633617535387,
+        "coupling_squared_se": 0.00041992798571450135,
+        "refinement_certificate": 0.11113857927145396,
+        "tail_energy_upper_bound": 0.44264591147423066,
+        "full_law_w2_upper_bound": 0.6745351697848734
+      },
+      {
+        "m": 8,
+        "coupling_rms_to_256_mode_reference": 0.3770297356671808,
+        "coupling_squared_se": 0.00016765431261000856,
+        "refinement_certificate": 0.13362758830328883,
+        "tail_energy_upper_bound": 0.23502402938806283,
+        "full_law_w2_upper_bound": 0.5028721127123834
+      },
+      {
+        "m": 16,
+        "coupling_rms_to_256_mode_reference": 0.2785306890582005,
+        "coupling_squared_se": 7.113307000503652e-05,
+        "refinement_certificate": 0.1457922953579574,
+        "tail_energy_upper_bound": 0.12117506680647874,
+        "full_law_w2_upper_bound": 0.3773996027981755
+      },
+      {
+        "m": 32,
+        "coupling_rms_to_256_mode_reference": 0.20986807653245054,
+        "coupling_squared_se": 4.1788537255445e-05,
+        "refinement_certificate": 0.1521225700985648,
+        "tail_energy_upper_bound": 0.06153360804060418,
+        "full_law_w2_upper_bound": 0.2909894918618144
+      },
+      {
+        "m": 64,
+        "coupling_rms_to_256_mode_reference": 0.1639588397567253,
+        "coupling_squared_se": 3.538850484467575e-05,
+        "refinement_certificate": 0.15535153416764705,
+        "tail_energy_upper_bound": 0.03100713087867786,
+        "full_law_w2_upper_bound": 0.23482169841588207
+      },
+      {
+        "m": 128,
+        "coupling_rms_to_256_mode_reference": 0.1349648024902257,
+        "coupling_squared_se": 3.434060094475241e-05,
+        "refinement_certificate": 0.15698217509985765,
+        "tail_energy_upper_bound": 0.015564123787529228,
+        "full_law_w2_upper_bound": 0.20051814652697048
+      },
+      {
+        "m": 256,
+        "coupling_rms_to_256_mode_reference": 0.11772066603585087,
+        "coupling_squared_se": 3.4187235781948365e-05,
+        "refinement_certificate": 0.15780155866135762,
+        "tail_energy_upper_bound": 0.007797261079091794,
+        "full_law_w2_upper_bound": 0.18082752278081365
+      }
+    ]
+  }
+}

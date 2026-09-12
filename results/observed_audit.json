@@ -1,0 +1,1039 @@
+{
+  "description": "Training on noisy observed fields; conditional distribution audit without target means",
+  "confidence": 0.99,
+  "joint_scope": "All four fixed candidates, all audited bands, all cutoffs, and all three stated sample budgets",
+  "training": {
+    "fields": 16384,
+    "modes": 8,
+    "steps": 1200,
+    "batch_pairs": 1024,
+    "width": 12,
+    "seeds": [
+      481,
+      482,
+      483
+    ]
+  },
+  "audit_uses_target_mean": false,
+  "propagation": "Dependency certificate: the only parent is the exactly sampled first mode; generic prefix comparison also recorded",
+  "target_regularization_assumptions": {
+    "feature": "first coefficient",
+    "target_feature_lipschitz": 0.86,
+    "normalized_support": [
+      -1.1,
+      1.1
+    ]
+  },
+  "budgets": [
+    {
+      "n_calibration": 4096,
+      "n_aggregation": 4096,
+      "bins": 8,
+      "rows": [
+        {
+          "model": 481,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.8476279473587433,
+              "generic_prefix_projected_certificate": 1.0924539101862698,
+              "generic_prefix_full_law_certificate": 1.1557854388850963,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.9278241061759177
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.9458535178544388,
+              "generic_prefix_projected_certificate": 1.3707548752010918,
+              "generic_prefix_full_law_certificate": 1.3980587698689164,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.9850067377218514
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.9956372279202284,
+              "generic_prefix_projected_certificate": 1.5280479720900688,
+              "generic_prefix_full_law_certificate": 1.5407493582122052,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 1.015022891093313
+            },
+            {
+              "m": 32,
+              "projected_certificate": 1.0207464677120515,
+              "generic_prefix_projected_certificate": 1.6116372671641717,
+              "generic_prefix_full_law_certificate": 1.6177663587486277,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 1.0303963615682192
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.42410175639569436,
+            0.18828295176967944,
+            0.10608842897822263,
+            0.06787442906143568,
+            0.04712008960938612,
+            0.034644008578416506,
+            0.026527212844782596,
+            0.02097408636049946,
+            0.016986012601722743,
+            0.014014435421094077,
+            0.01178399238327382,
+            0.010059417029035619,
+            0.008662353202325277,
+            0.007538151433618659,
+            0.006636163951489608,
+            0.005871929244634597,
+            0.0052350784848342255,
+            0.004704615853631012,
+            0.004243678972789613,
+            0.003855468384542043,
+            0.0035101190746555065,
+            0.003206463713952566,
+            0.0029448686635857933,
+            0.002711151483206429,
+            0.0025148132431742315,
+            0.002328635835442521,
+            0.0021664081964582822,
+            0.0020198744041749254,
+            0.0018907409778019032,
+            0.0017655116796322689,
+            0.001660503513437622
+          ],
+          "min_count": 467,
+          "empty_cells": 0
+        },
+        {
+          "model": 482,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.8467755921970664,
+              "generic_prefix_projected_certificate": 1.089084277958518,
+              "generic_prefix_full_law_certificate": 1.152600971435462,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.927045488850594
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.9448965389696937,
+              "generic_prefix_projected_certificate": 1.3650259314344766,
+              "generic_prefix_full_law_certificate": 1.3924421674196696,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.9840878342285981
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.9946277287077023,
+              "generic_prefix_projected_certificate": 1.5208071956828237,
+              "generic_prefix_full_law_certificate": 1.5335685528411844,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 1.0140326910593136
+            },
+            {
+              "m": 32,
+              "projected_certificate": 1.019710551817931,
+              "generic_prefix_projected_certificate": 1.6035468682562295,
+              "generic_prefix_full_law_certificate": 1.6097067649981334,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 1.0293701569771798
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.42325977806880966,
+            0.18790794496039911,
+            0.1058611805114838,
+            0.06773608915432802,
+            0.04702108855696371,
+            0.03457014479274457,
+            0.026473243312176993,
+            0.020931266459157286,
+            0.016949913961099298,
+            0.013986406600163762,
+            0.011759252361678896,
+            0.01003805670140856,
+            0.008644908507110373,
+            0.007522513165737759,
+            0.0066225316009809005,
+            0.005859485957804247,
+            0.005224297475010787,
+            0.004694872616591712,
+            0.004234853947424263,
+            0.0038475030477706203,
+            0.003502805695948942,
+            0.003199713994134039,
+            0.002938975302371411,
+            0.002705567279661641,
+            0.002509715824983587,
+            0.002323853134636299,
+            0.0021620118633265168,
+            0.0020159114136333502,
+            0.0018867713118685344,
+            0.0017618350795425976,
+            0.0016571168298784233
+          ],
+          "min_count": 467,
+          "empty_cells": 0
+        },
+        {
+          "model": 483,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.850733193545233,
+              "generic_prefix_projected_certificate": 1.1022097594473734,
+              "generic_prefix_full_law_certificate": 1.1650110680498194,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.9306618083155744
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.949327114185329,
+              "generic_prefix_projected_certificate": 1.3868270456425327,
+              "generic_prefix_full_law_certificate": 1.413820586441371,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.9883427370337031
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.9992964454822046,
+              "generic_prefix_projected_certificate": 1.5481564164276052,
+              "generic_prefix_full_law_certificate": 1.5606941627201387,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 1.0186124708524433
+            },
+            {
+              "m": 32,
+              "projected_certificate": 1.0244997518809646,
+              "generic_prefix_projected_certificate": 1.6340127799743278,
+              "generic_prefix_full_law_certificate": 1.6400582537537578,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 1.034114622365699
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.42720365458234333,
+            0.1896366337152465,
+            0.106906678302081,
+            0.06837728654017931,
+            0.047469794978992966,
+            0.03490428024237922,
+            0.026723641366222385,
+            0.02112839460577512,
+            0.017114186564259184,
+            0.014117247922771166,
+            0.011872074715476532,
+            0.010134587858140521,
+            0.008725957062044286,
+            0.007594093383288582,
+            0.006684874114168802,
+            0.005916024740452372,
+            0.005273953483845732,
+            0.004740187012195079,
+            0.004274985478701943,
+            0.0038847446692732686,
+            0.0035363637528955474,
+            0.0032303176143701567,
+            0.0029660731218731765,
+            0.0027314856598123147,
+            0.0025334064471024985,
+            0.002345920150154346,
+            0.0021822740027097284,
+            0.002034194243356882,
+            0.0019051029017400267,
+            0.0017786872881228842,
+            0.0016726350841831873
+          ],
+          "min_count": 467,
+          "empty_cells": 0
+        },
+        {
+          "model": "no_context",
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.8752811846407881,
+              "generic_prefix_projected_certificate": 0.8752811846407881,
+              "generic_prefix_full_law_certificate": 0.953153496055974,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.953153496055974
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.9766163805864597,
+              "generic_prefix_projected_certificate": 0.9766163805864596,
+              "generic_prefix_full_law_certificate": 1.0145831414672843,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 1.0145831414672843
+            },
+            {
+              "m": 16,
+              "projected_certificate": 1.027950195804536,
+              "generic_prefix_projected_certificate": 1.027950195804536,
+              "generic_prefix_full_law_certificate": 1.0467375912220478,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 1.0467375912220478
+            },
+            {
+              "m": 32,
+              "projected_certificate": 1.0538480713750205,
+              "generic_prefix_projected_certificate": 1.0538480713750202,
+              "generic_prefix_full_law_certificate": 1.0631975677771484,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 1.0631975677771486
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.4521904227165588,
+            0.20064953135685695,
+            0.11327719811276554,
+            0.07232403801361713,
+            0.05018834861624461,
+            0.036881539508019895,
+            0.028268476505733747,
+            0.022321975873255608,
+            0.018093521508018066,
+            0.014940578343709508,
+            0.012559088516835347,
+            0.010666835112161715,
+            0.009231032982411649,
+            0.008039283374590006,
+            0.00704973451380563,
+            0.006248361703452712,
+            0.005583552680264866,
+            0.005013742230230458,
+            0.004518152395351753,
+            0.004110292123291199,
+            0.0037346129665827713,
+            0.0034162395725020277,
+            0.003131578961751833,
+            0.0028993707565612226,
+            0.002671412561129174,
+            0.002477816983761888,
+            0.0023040777164123043,
+            0.002145384312688031,
+            0.002014026473295338,
+            0.0018811469263238295,
+            0.0017643841226665674
+          ],
+          "min_count": 467,
+          "empty_cells": 0
+        }
+      ]
+    },
+    {
+      "n_calibration": 16384,
+      "n_aggregation": 16384,
+      "bins": 12,
+      "rows": [
+        {
+          "model": 481,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.6247706829312017,
+              "generic_prefix_projected_certificate": 0.8052352093237368,
+              "generic_prefix_full_law_certificate": 0.8892627155077326,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.72987864820658
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.697128788364704,
+              "generic_prefix_projected_certificate": 1.0103046016538466,
+              "generic_prefix_full_law_certificate": 1.0470505165667818,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.7493917157846537
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.733788458619205,
+              "generic_prefix_projected_certificate": 1.1261867464302489,
+              "generic_prefix_full_law_certificate": 1.1433610836730015,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 0.7598838607481406
+            },
+            {
+              "m": 32,
+              "projected_certificate": 0.7522733773145697,
+              "generic_prefix_projected_certificate": 1.187761792821772,
+              "generic_prefix_full_law_certificate": 1.1960649593870663,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 0.7653159770987819
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.2303564223465172,
+            0.10244271993622152,
+            0.05753926396758156,
+            0.03686960482313799,
+            0.025608139008394027,
+            0.018780581352655257,
+            0.014391816132332761,
+            0.011376848249164264,
+            0.009222125928821379,
+            0.007609894388897464,
+            0.006399763895002348,
+            0.00545759774710182,
+            0.0047011574957992516,
+            0.004092466804320149,
+            0.0035970999268019025,
+            0.003188474517890834,
+            0.002841287988660859,
+            0.0025503322875920784,
+            0.0023005698080897715,
+            0.0020898225884484183,
+            0.001903899189972447,
+            0.00174031465712251,
+            0.0015996731994020578,
+            0.0014732988945801964,
+            0.0013650526196809934,
+            0.0012640319116830412,
+            0.0011751536602398966,
+            0.0010965472297523305,
+            0.0010233008584357947,
+            0.0009583377849490936,
+            0.0008996350170196678
+          ],
+          "min_count": 1311,
+          "empty_cells": 0
+        },
+        {
+          "model": 482,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.624333301730216,
+              "generic_prefix_projected_certificate": 0.8029933779438827,
+              "generic_prefix_full_law_certificate": 0.8872332274431969,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.7295042882032271
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.6966408191907411,
+              "generic_prefix_projected_certificate": 1.0063928532456323,
+              "generic_prefix_full_law_certificate": 1.0432765554653818,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.7489377992080342
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.7332735126700651,
+              "generic_prefix_projected_certificate": 1.1211970364058645,
+              "generic_prefix_full_law_certificate": 1.1384466497241073,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 0.7593866104997156
+            },
+            {
+              "m": 32,
+              "projected_certificate": 0.7517460029244588,
+              "generic_prefix_projected_certificate": 1.1821668821091054,
+              "generic_prefix_full_law_certificate": 1.1905090708356478,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 0.7647975964262014
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.23007063194626579,
+            0.10228487858357821,
+            0.05743656111950889,
+            0.03682552716153238,
+            0.025571962750248707,
+            0.01875218936534402,
+            0.014366680036268736,
+            0.01136021509050094,
+            0.00920616661900213,
+            0.007599313083029163,
+            0.006391282624282971,
+            0.005450862487090463,
+            0.004694229483529799,
+            0.004087226997886356,
+            0.003592317035427516,
+            0.003183624888550285,
+            0.0028371894092053154,
+            0.00254658099619538,
+            0.0022972475136193615,
+            0.0020870323884876044,
+            0.0019015203998863496,
+            0.0017381119534560787,
+            0.0015976241717329945,
+            0.0014712462857199037,
+            0.0013634205364086854,
+            0.0012621376666452396,
+            0.0011736752133026274,
+            0.001095085254513715,
+            0.0010219103975938767,
+            0.00095722477412064,
+            0.0008983766799663777
+          ],
+          "min_count": 1311,
+          "empty_cells": 0
+        },
+        {
+          "model": 483,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.6271870270319636,
+              "generic_prefix_projected_certificate": 0.8125997982264938,
+              "generic_prefix_full_law_certificate": 0.8959368654851091,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.7319480867757885
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.6998121069598712,
+              "generic_prefix_projected_certificate": 1.022337808299367,
+              "generic_prefix_full_law_certificate": 1.0586661373625683,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.7518885430483969
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.7366175111640113,
+              "generic_prefix_projected_certificate": 1.14121931650509,
+              "generic_prefix_full_law_certificate": 1.158170759511349,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 0.762616114159813
+            },
+            {
+              "m": 32,
+              "projected_certificate": 0.7551722042487683,
+              "generic_prefix_projected_certificate": 1.2044721234093574,
+              "generic_prefix_full_law_certificate": 1.2126608786699768,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 0.7681655867430783
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.23206607434097892,
+            0.10328226510480629,
+            0.05801522743140776,
+            0.037130150538321645,
+            0.025800174867100106,
+            0.018932185252613754,
+            0.01451090751238562,
+            0.011468784174722541,
+            0.009298001262765733,
+            0.007669491656931605,
+            0.006448439308429889,
+            0.00549732405282948,
+            0.00473848310274799,
+            0.004123605358581821,
+            0.0036242437888391746,
+            0.003212907119314536,
+            0.0028639201425975165,
+            0.002570630768103626,
+            0.002318902901062654,
+            0.0021061509644453723,
+            0.0019180583148868562,
+            0.0017530266623412825,
+            0.0016115755162837615,
+            0.001484551333866567,
+            0.0013747756729146333,
+            0.001273750404598101,
+            0.0011839882811318283,
+            0.001104728995387658,
+            0.0010312947692467833,
+            0.0009650317393481503,
+            0.0009064067309517447
+          ],
+          "min_count": 1311,
+          "empty_cells": 0
+        },
+        {
+          "model": "no_context",
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.7119594408863459,
+              "generic_prefix_projected_certificate": 0.711959440886346,
+              "generic_prefix_full_law_certificate": 0.8057733430219335,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.8057733430219335
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.7943844996478491,
+              "generic_prefix_projected_certificate": 0.7943844996478491,
+              "generic_prefix_full_law_certificate": 0.8406224654389094,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.8406224654389094
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.8361674222831019,
+              "generic_prefix_projected_certificate": 0.8361674222831019,
+              "generic_prefix_full_law_certificate": 0.8591588548751145,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 0.8591588548751145
+            },
+            {
+              "m": 32,
+              "projected_certificate": 0.8572340505779745,
+              "generic_prefix_projected_certificate": 0.8572340505779745,
+              "generic_prefix_full_law_certificate": 0.868702209077838,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 0.8687022090778379
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.2990127599332328,
+            0.13304775877829506,
+            0.07482572675567051,
+            0.047806183378745974,
+            0.03322683808763289,
+            0.024407110635153453,
+            0.01872035571203287,
+            0.014787063368106451,
+            0.011971526740266527,
+            0.00989109380733411,
+            0.008310420629328281,
+            0.0070739628884838235,
+            0.0061056814660225,
+            0.005322465182563527,
+            0.004667010724698562,
+            0.004134269403409001,
+            0.003694158342568082,
+            0.0033150446740792547,
+            0.002993133596697596,
+            0.0027168412153175175,
+            0.0024702202948574887,
+            0.0022581798862155015,
+            0.0020758718995166473,
+            0.0019152353506753919,
+            0.0017703746498523058,
+            0.0016417529542369143,
+            0.0015254858716463359,
+            0.0014226820916513748,
+            0.0013295336589961594,
+            0.0012444230793898596,
+            0.0011670524136445266
+          ],
+          "min_count": 1311,
+          "empty_cells": 0
+        }
+      ]
+    },
+    {
+      "n_calibration": 65536,
+      "n_aggregation": 65536,
+      "bins": 16,
+      "rows": [
+        {
+          "model": 481,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.47204152525342685,
+              "generic_prefix_projected_certificate": 0.6083937969783831,
+              "generic_prefix_full_law_certificate": 0.7159102227649207,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.6043241153728071
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.5267138313582731,
+              "generic_prefix_projected_certificate": 0.7633359711687896,
+              "generic_prefix_full_law_certificate": 0.8113453031847945,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.5941606317015107
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.5544242498581083,
+              "generic_prefix_projected_certificate": 0.8509087352408428,
+              "generic_prefix_full_law_certificate": 0.8735122526512844,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 0.588527169001973
+            },
+            {
+              "m": 32,
+              "projected_certificate": 0.5683986862095104,
+              "generic_prefix_projected_certificate": 0.897444400546849,
+              "generic_prefix_full_law_certificate": 0.9084050652981233,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 0.5855513445216327
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.13147445648126319,
+            0.058481306563230855,
+            0.03286743851908754,
+            0.021039962171333314,
+            0.014610508306286952,
+            0.010735110333951095,
+            0.008218677768958436,
+            0.006497285958618678,
+            0.005266974377653542,
+            0.004348234780466698,
+            0.0036521411112811785,
+            0.003115526589128745,
+            0.0026854407099211586,
+            0.0023379716831076237,
+            0.0020552134764371187,
+            0.0018203307867752704,
+            0.0016244633590846332,
+            0.0014578583509630059,
+            0.0013162003872622847,
+            0.0011927659054294256,
+            0.001087262185044276,
+            0.0009939499697458759,
+            0.0009134398668174842,
+            0.0008420452475958308,
+            0.0007786844280822824,
+            0.0007217534811393034,
+            0.0006706489707074267,
+            0.0006259340338181972,
+            0.0005842117030233942,
+            0.0005478139583146769,
+            0.0005134550201679563
+          ],
+          "min_count": 3937,
+          "empty_cells": 0
+        },
+        {
+          "model": 482,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.4717993468038177,
+              "generic_prefix_projected_certificate": 0.6068166580745432,
+              "generic_prefix_full_law_certificate": 0.7145704243629883,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.6041349671241132
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.5264433898966586,
+              "generic_prefix_projected_certificate": 0.7605253026704795,
+              "generic_prefix_full_law_certificate": 0.8087015099045205,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.5939209028866658
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.5541394486056189,
+              "generic_prefix_projected_certificate": 0.8473010908248165,
+              "generic_prefix_full_law_certificate": 0.869998343869501,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 0.588258878661164
+            },
+            {
+              "m": 32,
+              "projected_certificate": 0.5681067288801912,
+              "generic_prefix_projected_certificate": 0.8933875717093274,
+              "generic_prefix_full_law_certificate": 0.904397403728628,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 0.5852679437534106
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.13133988367536423,
+            0.05842108695756996,
+            0.032833653011574856,
+            0.021018785826363125,
+            0.014595129418110525,
+            0.010723985426247397,
+            0.008210118450655253,
+            0.006490583895872078,
+            0.00526155304629738,
+            0.004343741682787414,
+            0.00364840228221139,
+            0.0031122751412589237,
+            0.0026826111718936275,
+            0.002335584748226397,
+            0.002053133766506879,
+            0.0018184285084454261,
+            0.0016227961013823423,
+            0.0014563558475523797,
+            0.0013148400667798374,
+            0.0011915398421491646,
+            0.00108614537161612,
+            0.000992958864440205,
+            0.0009125228566326416,
+            0.000841170642979295,
+            0.0007778957910645242,
+            0.0007210126136247656,
+            0.0006699563697106466,
+            0.0006252907260981149,
+            0.0005836273880567744,
+            0.0005472563005639677,
+            0.0005129296069153646
+          ],
+          "min_count": 3937,
+          "empty_cells": 0
+        },
+        {
+          "model": 483,
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.4738846556964504,
+              "generic_prefix_projected_certificate": 0.6139741687374912,
+              "generic_prefix_full_law_certificate": 0.7206585285240421,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.6057648898393564
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.5287687206007676,
+              "generic_prefix_projected_certificate": 0.7724619486564173,
+              "generic_prefix_full_law_certificate": 0.8199371062721191,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.5959830165412431
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.5565871614381867,
+              "generic_prefix_projected_certificate": 0.8623002217582956,
+              "generic_prefix_full_law_certificate": 0.8846127131503121,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 0.5905651937767488
+            },
+            {
+              "m": 32,
+              "projected_certificate": 0.5706157404400892,
+              "generic_prefix_projected_certificate": 0.9101069104247645,
+              "generic_prefix_full_law_certificate": 0.9209168795224163,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 0.5877036956021169
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.13250221181347477,
+            0.058937784474721734,
+            0.033126670616346825,
+            0.021203335885895014,
+            0.014724316856345506,
+            0.010818523273682972,
+            0.008283516965305902,
+            0.006548165092765548,
+            0.005308191855706768,
+            0.004382438402903926,
+            0.0036805419010406933,
+            0.0031397919130781234,
+            0.0027064058317847425,
+            0.0023561848107343034,
+            0.0020711885840312715,
+            0.001834477138487575,
+            0.0016371612847809567,
+            0.0014692528402521833,
+            0.001326477438918433,
+            0.001202069343047585,
+            0.0010957213052639767,
+            0.0010016294533227138,
+            0.0009205233508988042,
+            0.0008486150499114043,
+            0.0007847481568638592,
+            0.0007274064446256426,
+            0.0006758764116196179,
+            0.0006308217988567611,
+            0.0005887449961833395,
+            0.0005520846958574413,
+            0.0005174452512829129
+          ],
+          "min_count": 3937,
+          "empty_cells": 0
+        },
+        {
+          "model": "no_context",
+          "cuts": [
+            {
+              "m": 4,
+              "projected_certificate": 0.5897600918750202,
+              "generic_prefix_projected_certificate": 0.5897600918750203,
+              "generic_prefix_full_law_certificate": 0.7001438429537009,
+              "tail_bound": 0.37733862094615256,
+              "full_law_certificate": 0.7001438429537008
+            },
+            {
+              "m": 8,
+              "projected_certificate": 0.6580626989537653,
+              "generic_prefix_projected_certificate": 0.6580626989537655,
+              "generic_prefix_full_law_certificate": 0.7131941614133847,
+              "tail_bound": 0.27495344354967965,
+              "full_law_certificate": 0.7131941614133845
+            },
+            {
+              "m": 16,
+              "projected_certificate": 0.6926749092675634,
+              "generic_prefix_projected_certificate": 0.6926749092675636,
+              "generic_prefix_full_law_certificate": 0.7202614176474942,
+              "tail_bound": 0.19742841695852872,
+              "full_law_certificate": 0.720261417647494
+            },
+            {
+              "m": 32,
+              "projected_certificate": 0.7101294440085049,
+              "generic_prefix_projected_certificate": 0.7101294440085053,
+              "generic_prefix_full_law_certificate": 0.7239317218040823,
+              "tail_bound": 0.14068870099050013,
+              "full_law_certificate": 0.7239317218040818
+            }
+          ],
+          "conditional_error_squared_upper": [
+            0.0,
+            0.20524287911463968,
+            0.09122664167823005,
+            0.05134744517556261,
+            0.03283185999956064,
+            0.02280100562347745,
+            0.01674683113615124,
+            0.012849853026692337,
+            0.010144718087314174,
+            0.008215260812859095,
+            0.006787546886764586,
+            0.005702202737346416,
+            0.0048575977580240385,
+            0.004188295660185577,
+            0.003649991014261513,
+            0.0032064012177577036,
+            0.002840823619772675,
+            0.0025363623555043416,
+            0.002275043516323148,
+            0.002052944175556948,
+            0.0018621694924756387,
+            0.0016966291528176952,
+            0.0015509656598599786,
+            0.0014250768254935391,
+            0.0013137169488310924,
+            0.0012138718101196613,
+            0.0011263326263737659,
+            0.00104759618547049,
+            0.0009763277003856358,
+            0.0009122117949042204,
+            0.0008542382450189088,
+            0.00080098721009345
+          ],
+          "min_count": 3937,
+          "empty_cells": 0
+        }
+      ]
+    }
+  ],
+  "truth_diagnostics": [
+    {
+      "model": 481,
+      "conditional_mean_mse_quadrature": 0.0001423565430505401,
+      "cuts": [
+        {
+          "m": 4,
+          "shared_noise_projected_rms": 0.00776555299869726,
+          "shared_noise_full_coupling_upper": 0.16815718244327976
+        },
+        {
+          "m": 8,
+          "shared_noise_projected_rms": 0.008664985866883619,
+          "shared_noise_full_coupling_upper": 0.12270585235078404
+        },
+        {
+          "m": 16,
+          "shared_noise_projected_rms": 0.009120611407400009,
+          "shared_noise_full_coupling_upper": 0.08836011262922305
+        },
+        {
+          "m": 32,
+          "shared_noise_projected_rms": 0.009350440010555428,
+          "shared_noise_full_coupling_upper": 0.06332377422955676
+        }
+      ]
+    },
+    {
+      "model": 482,
+      "conditional_mean_mse_quadrature": 0.00016781017694108375,
+      "cuts": [
+        {
+          "m": 4,
+          "shared_noise_projected_rms": 0.008431266542445722,
+          "shared_noise_full_coupling_upper": 0.16818923999292185
+        },
+        {
+          "m": 8,
+          "shared_noise_projected_rms": 0.009407804626724822,
+          "shared_noise_full_coupling_upper": 0.12276054337185766
+        },
+        {
+          "m": 16,
+          "shared_noise_projected_rms": 0.009902489342196345,
+          "shared_noise_full_coupling_upper": 0.08844423806318023
+        },
+        {
+          "m": 32,
+          "shared_noise_projected_rms": 0.010152020343093046,
+          "shared_noise_full_coupling_upper": 0.06344708954184941
+        }
+      ]
+    },
+    {
+      "model": 483,
+      "conditional_mean_mse_quadrature": 0.00015147255458367932,
+      "cuts": [
+        {
+          "m": 4,
+          "shared_noise_projected_rms": 0.008010334396891982,
+          "shared_noise_full_coupling_upper": 0.16816866429581026
+        },
+        {
+          "m": 8,
+          "shared_noise_projected_rms": 0.008938118682561922,
+          "shared_noise_full_coupling_upper": 0.12272544229556756
+        },
+        {
+          "m": 16,
+          "shared_noise_projected_rms": 0.009408106195352473,
+          "shared_noise_full_coupling_upper": 0.08839025067046262
+        },
+        {
+          "m": 32,
+          "shared_noise_projected_rms": 0.009645179326596871,
+          "shared_noise_full_coupling_upper": 0.06336796618581896
+        }
+      ]
+    },
+    {
+      "model": "no_context",
+      "conditional_mean_mse_quadrature": 0.12415698550825197,
+      "cuts": [
+        {
+          "m": 4,
+          "shared_noise_projected_rms": 0.22933442520336264,
+          "shared_noise_full_coupling_upper": 0.2842724270435732
+        },
+        {
+          "m": 8,
+          "shared_noise_projected_rms": 0.2558967215226504,
+          "shared_noise_full_coupling_upper": 0.2836631387880703
+        },
+        {
+          "m": 16,
+          "shared_noise_projected_rms": 0.26935237902184295,
+          "shared_noise_full_coupling_upper": 0.2833284808065203
+        },
+        {
+          "m": 32,
+          "shared_noise_projected_rms": 0.2761397398973378,
+          "shared_noise_full_coupling_upper": 0.2831530074091643
+        }
+      ]
+    }
+  ],
+  "truth_quadrature_order_difference": 9.43689570931383e-16,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu"
+  },
+  "arithmetic_scope": "Float64 theorem-bound evaluation; not an interval-arithmetic certificate"
+}
